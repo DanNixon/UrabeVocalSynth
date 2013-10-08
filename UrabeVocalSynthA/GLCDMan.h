@@ -5,7 +5,7 @@
 #include "hiragana.cpp"
 #include "KanaTable.h"
 
-static const char *hiragana[] =
+static const char *hiragana[KanaTable::KANA_COUNT] =
   {
     "\x42", "\x44", "\x46", "\x48", "\x4a", //0
     "\x4b", "\x4d", "\x4f", "\x51", "\x53", //K
@@ -24,13 +24,14 @@ static const char *hiragana[] =
     "\x70", "\x73", "\x76", "\x79", "\x7c", //B
     "\x71", "\x74", "\x77", "\x7a", "\x7d"  //P
   };
-  
+
 class GLCDManager
 {
   private:
     void drawTitle(char *);
     void drawUpperButtons(char *, char *);
     void drawLowerButtons(char *, char *);
+    
   public:
     static const int GLCD_WIDTH;
     static const int GLCD_HEIGHT;

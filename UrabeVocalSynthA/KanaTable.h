@@ -3,6 +3,8 @@
 
 namespace KanaTable
 {
+  static const int KANA_COUNT = 71;
+
   enum Kana
   {
     _A = 0,  _I,  _U,  _E,  _O,
@@ -24,8 +26,6 @@ namespace KanaTable
     
     _NULL = 255
   };
-  
-  static const int KANA_COUNT = 71;
 };
 
 #endif
