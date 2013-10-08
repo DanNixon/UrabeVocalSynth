@@ -4,6 +4,7 @@
 #include <U8glib.h>
 
 #include "Defenitions.h"
+#include "KanaTable.h"
 #include "GLCDMan.h"
 
 #define rcvPin 4
@@ -921,26 +922,6 @@ KanaTable::Kana phrase[] = {
 int phrase_pos = 0;
 int notes_on = 0;
 
-void draw2(KanaTable::Kana displayKana[])
-{
-  int px_h = 45;
-  glcd_man.u8g.setFont(hira1);
-  glcd_man.u8g.setScale2x2();
-  int offset = 0;
-  if(notes_on)
-  {
-    offset = -1;
-    glcd_man.u8g.drawHLine(0, (px_h / 2) + 1, 15);
-  }
-  glcd_man.u8g.drawStr(0, (px_h / 2), GLCDKanaMap::hiragana[displayKana[phrase_pos + offset]]);
-  glcd_man.u8g.undoScale();
-  for(int i=1; i<8; i++)
-  {
-    int px_x = 28 + (14 * (i - 1));
-    glcd_man.u8g.drawStr(px_x, px_h, GLCDKanaMap::hiragana[displayKana[phrase_pos + i + offset]]);
-  }
-}
-
 void midi_note_handle(byte channel, byte pitch, byte velocity)
 {
   if(velocity == 0)
@@ -956,7 +937,7 @@ void midi_note_handle(byte channel, byte pitch, byte velocity)
     KanaTable::Kana kana = phrase[phrase_pos];
     phrase_pos++;
     if(phrase[phrase_pos] == KanaTable::_NULL) phrase_pos = 0;
-    GSNote note = GSNoteMap::GS_MIDINotes[pitch];
+    GSNote note = GS_MIDINotes[pitch];
     jpSpeakKana(kana, note);
   }
 }
@@ -979,20 +960,20 @@ void heartbeat()
   }
 }
 
-void loop ()
+void loop()
 {
   heartbeat();
   MIDI.read();
   glcd_man.u8g.firstPage();  
   do {
     glcd_man.draw();
-    KanaTable::Kana displayPhraseKana[8];
-    for(int i=0; i<8; i++)
+    KanaTable::Kana displayPhraseKana[7];
+    for(int i=0; i<7; i++)
     {
       int index = phrase_pos + i;
       displayPhraseKana[i] = phrase[index];
     }
-    draw2(displayPhraseKana);
+    glcd_man.drawKanaBuffer(displayPhraseKana, notes_on);
   } while(glcd_man.u8g.nextPage());
 }
 
