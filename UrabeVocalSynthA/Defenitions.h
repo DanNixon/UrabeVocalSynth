@@ -4,7 +4,6 @@
 #include <GinSing.h>
 #include "KanaTable.h"
 
-
 namespace GS_MIDIMap
 {
   GSNote GS_MIDINotes[] =

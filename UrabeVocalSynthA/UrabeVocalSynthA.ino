@@ -5,15 +5,19 @@
 #include "Defenitions.h"
 #include "KanaTable.h"
 #include "GLCDMan.h"
+#include "GUIMan.h"
 
 #define rcvPin 4
 #define sndPin 3
 #define ovfPin 2
 
+using namespace GUIMan;
+
 GinSing GS;
-GinSingVoice * voice = 0x0;
+GinSingVoice *voice = 0x0;
 
 GLCDManager glcd_man;
+GUIManager gui_man(&glcd_man);
 
 KanaTable::Kana phrase[] =
   {
@@ -131,7 +135,23 @@ void setup ()
   GS.begin(rcvPin , sndPin , ovfPin);
   voice = GS.getVoice();
   voice->begin();
+  redraw();
+}
 
+int phrase_pos = 0;
+int notes_on = 0;
+
+void redraw()
+{
+  gui_man.current_window = JP_RUN;
+  for(int i=0; i<7; i++)
+  {
+    int index = phrase_pos + i;
+    if(notes_on) index--;
+    gui_man.display_kana[i] = phrase[index];
+  }
+  gui_man.notes_on = notes_on;
+  gui_man.draw();
 }
 
 void jpSpeakKana(KanaTable::Kana kana, GSNote note)
@@ -147,9 +167,6 @@ void endSpeak()
   GSAllophone phrase[] = {_PA1, _ENDPHRASE};
   voice->speak(phrase);
 }
-
-int phrase_pos = 0;
-int notes_on = 0;
 
 void midi_note_handle(byte channel, byte pitch, byte velocity)
 {
@@ -169,6 +186,7 @@ void midi_note_handle(byte channel, byte pitch, byte velocity)
     GSNote note = GS_MIDIMap::GS_MIDINotes[pitch];
     jpSpeakKana(kana, note);
   }
+  redraw();
 }
 
 long last_hb = 0;
@@ -193,16 +211,5 @@ void loop()
 {
   heartbeat();
   MIDI.read();
-  glcd_man.u8g.firstPage();  
-  do {
-    glcd_man.draw();
-    KanaTable::Kana displayPhraseKana[7];
-    for(int i=0; i<7; i++)
-    {
-      int index = phrase_pos + i;
-      displayPhraseKana[i] = phrase[index];
-    }
-    glcd_man.drawKanaBuffer(displayPhraseKana, notes_on);
-  } while(glcd_man.u8g.nextPage());
 }
 

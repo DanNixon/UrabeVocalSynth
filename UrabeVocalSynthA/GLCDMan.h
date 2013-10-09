@@ -26,12 +26,7 @@ static const char *hiragana[KanaTable::KANA_COUNT] =
   };
 
 class GLCDManager
-{
-  private:
-    void drawTitle(char *);
-    void drawUpperButtons(char *, char *);
-    void drawLowerButtons(char *, char *);
-    
+{  
   public:
     static const int GLCD_WIDTH;
     static const int GLCD_HEIGHT;
@@ -40,8 +35,12 @@ class GLCDManager
     static const int UPPER_BUTTON_WIDTH;
     static U8GLIB_ST7920_128X64_1X u8g;
     GLCDManager();
-    void draw();
-    void drawKanaBuffer(KanaTable::Kana displayKana[], int notes_on);
+    void draw_base();
+    void draw_title(char *);
+    void draw_title_large(char *);
+    void draw_buttons_upper(char *, char *);
+    void draw_buttons_lower(char *, char *);
+    void draw_kana_buffer(KanaTable::Kana[], int);
 };
 
 #endif

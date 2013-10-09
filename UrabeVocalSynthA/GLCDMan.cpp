@@ -14,13 +14,19 @@ GLCDManager::GLCDManager()
   this->u8g.setColorIndex(1);
 }
 
-void GLCDManager::drawTitle(char *title)
+void GLCDManager::draw_title(char *title)
 {
   this->u8g.setFont(u8g_font_unifont);
   this->u8g.drawStr(30 + 4, 12, title);
 }
 
-void GLCDManager::drawUpperButtons(char *left, char *right)
+void GLCDManager::draw_title_large(char *title)
+{
+  this->u8g.setFont(u8g_font_unifont);
+  this->u8g.drawStr(0, 12, title);
+}
+
+void GLCDManager::draw_buttons_upper(char *left, char *right)
 {
   this->u8g.setFont(u8g_font_unifont);
   this->u8g.drawVLine(this->UPPER_BUTTON_WIDTH, 0, this->HEADER_HEIGHT);
@@ -29,7 +35,7 @@ void GLCDManager::drawUpperButtons(char *left, char *right)
   this->u8g.drawStr(this->GLCD_WIDTH - this->UPPER_BUTTON_WIDTH, 12, right);
 }
 
-void GLCDManager::drawLowerButtons(char *left, char *right)
+void GLCDManager::draw_buttons_lower(char *left, char *right)
 {
   this->u8g.setFont(u8g_font_unifont);
   int centre = this->GLCD_WIDTH / 2;
@@ -38,35 +44,27 @@ void GLCDManager::drawLowerButtons(char *left, char *right)
   this->u8g.drawStr(this->GLCD_WIDTH - centre + 1, this->GLCD_HEIGHT - 2, right);
 }
 
-void GLCDManager::drawKanaBuffer(KanaTable::Kana displayKana[], int notes_on)
+void GLCDManager::draw_kana_buffer(KanaTable::Kana displayKana[], int synth_on)
 {
   int px_h = 45;
   this->u8g.setFont(hira1);
   this->u8g.setScale2x2();
-  int offset = 0;
-  if(notes_on)
-  {
-    offset = -1;
+  if(synth_on)
     this->u8g.drawHLine(0, (px_h / 2) + 1, 15);
-  }
-  this->u8g.drawStr(0, (px_h / 2), hiragana[displayKana[offset]]);
+  this->u8g.drawStr(0, (px_h / 2), hiragana[displayKana[0]]);
   this->u8g.undoScale();
   for(int i=1; i<7; i++)
   {
     int px_x = 32 + (16 * (i - 1));
-    if(displayKana[i + offset] != KanaTable::_NULL)
-      this->u8g.drawStr(px_x, px_h, hiragana[displayKana[i + offset]]);
+    if(displayKana[i] != KanaTable::_NULL)
+      this->u8g.drawStr(px_x, px_h, hiragana[displayKana[i]]);
   }
 }
 
-void GLCDManager::draw()
+void GLCDManager::draw_base()
 {
-  this->u8g.setFont(u8g_font_unifont);
+//  this->u8g.setFont(u8g_font_unifont);
   this->u8g.drawHLine(0, this->HEADER_HEIGHT, 128);
   this->u8g.drawHLine(0, this->GLCD_HEIGHT - this->FOOTER_HEIGHT, 128);
-  
-  this->drawTitle("Title");
-  this->drawUpperButtons("Back", "Set");
-  this->drawLowerButtons("Reset", "Clr Buf");
 }
 
