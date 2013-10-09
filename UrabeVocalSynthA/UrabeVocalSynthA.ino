@@ -2,10 +2,10 @@
 #include <GinSing.h>
 #include <U8glib.h>
 
-#include "Defenitions.h"
 #include "KanaTable.h"
 #include "GLCDMan.h"
 #include "GUIMan.h"
+#include "JpSynthMan.h"
 
 #define rcvPin 4
 #define sndPin 3
@@ -14,12 +14,12 @@
 using namespace GUIMan;
 
 GinSing GS;
-GinSingVoice *voice = 0x0;
 
 GLCDManager glcd_man;
 GUIManager gui_man(&glcd_man);
+JpSynthManager jp_synth_man;
 
-KanaTable::Kana phrase[] =
+KanaTable::Kana p[] =
   {
     KanaTable::_NA,
     KanaTable::_GA,
@@ -127,65 +127,34 @@ KanaTable::Kana phrase[] =
     KanaTable::_NULL
   };
 
-void setup ()
+void setup()
 {
   pinMode(22, OUTPUT);
   MIDI.begin(MIDI_CHANNEL_OMNI);
   MIDI.setHandleNoteOn(midi_note_handle);
-  GS.begin(rcvPin , sndPin , ovfPin);
-  voice = GS.getVoice();
-  voice->begin();
+  GS.begin(rcvPin, sndPin, ovfPin);
+  jp_synth_man.init(GS);
+  for(int i=0; i<50; i++)
+    jp_synth_man.kana_buffer[i] = p[i];
   redraw();
 }
-
-int phrase_pos = 0;
-int notes_on = 0;
 
 void redraw()
 {
   gui_man.current_window = JP_RUN;
   for(int i=0; i<7; i++)
   {
-    int index = phrase_pos + i;
-    if(notes_on) index--;
-    gui_man.display_kana[i] = phrase[index];
+    int index = jp_synth_man.get_buffer_position() + i;
+    if(jp_synth_man.get_notes_on()) index--;
+    gui_man.display_kana[i] = jp_synth_man.kana_buffer[index];
   }
-  gui_man.notes_on = notes_on;
+  gui_man.notes_on = jp_synth_man.get_notes_on();
   gui_man.draw();
-}
-
-void jpSpeakKana(KanaTable::Kana kana, GSNote note)
-{
-//  voice->setBlendSpeed(0.2f);
-//  voice->setDelay(0.02f);
-  voice->setNote(note);
-  voice->speak(GSKanaMap::KanaMap[kana]);
-}
-
-void endSpeak()
-{
-  GSAllophone phrase[] = {_PA1, _ENDPHRASE};
-  voice->speak(phrase);
 }
 
 void midi_note_handle(byte channel, byte pitch, byte velocity)
 {
-  if(velocity == 0)
-  {
-    notes_on--;
-    if(notes_on == 0)
-      endSpeak();
-  }
-  else
-  {
-    notes_on++;
-    KanaTable::Kana kana = phrase[phrase_pos];
-    phrase_pos++;
-    if(phrase[phrase_pos] == KanaTable::_NULL)
-      phrase_pos = 0;
-    GSNote note = GS_MIDIMap::GS_MIDINotes[pitch];
-    jpSpeakKana(kana, note);
-  }
+  jp_synth_man.handle_midi_note(pitch, velocity);
   redraw();
 }
 
