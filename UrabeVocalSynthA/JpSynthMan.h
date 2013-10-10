@@ -6,6 +6,7 @@
 #include <GinSing.h>
 #include "KanaTable.h"
 #include "GSMidiMap.h"
+#include "ConfigDataDef.h"
 
 static GSAllophone kana_map[KanaTable::KANA_COUNT][3] =
   {
@@ -27,24 +28,6 @@ static GSAllophone kana_map[KanaTable::KANA_COUNT][3] =
     {_PE, _A}, {_PE, _I}, {_PE, _U}, {_PE, _E}, {_PO, _OE}
   };
 
-namespace JpSynthConfig
-{
-  enum DataType
-  {
-    INT,
-    FLOAT,
-    BOOL
-  };
-  
-  struct ConfigOption
-  {
-    char *name;
-    DataType type;
-    float max_val;
-    float min_value;
-  };
-};
-
 class JpSynthManager
 {
   private:
@@ -54,6 +37,7 @@ class JpSynthManager
     void speak_kana(KanaTable::Kana, GSNote);
   
   public:
+    ConfigData::ConfigOption options[20];
     float blend_delay;
     float phoneame_delay;
     JpSynthManager();

@@ -3,6 +3,8 @@
 JpSynthManager::JpSynthManager()
 {
   this->buffer_position = 0;
+  ConfigData::ConfigOption opt = {"test", ConfigData::ENUM, 0, {"A", "B", "C"}, 3};
+  //todo: init menu options
 }
 
 void JpSynthManager::init(GinSing gs)
