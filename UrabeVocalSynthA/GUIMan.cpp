@@ -58,3 +58,8 @@ void GUIManager::do_draw()
       break;
   }
 }
+
+void GUIManager::handle_menu_input(ButtonValue b_val)
+{
+  //todo
+}

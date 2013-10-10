@@ -18,6 +18,20 @@ namespace GUIMan
     JP_RUN
   };
   
+  enum ButtonValue
+  {
+    F1, //GLCD Top Left
+    F2, //GLCD Top Right
+    F3, //GLCD Bottom Left
+    F4, //GLCD Bottom Right
+    SELECT,
+    BACK,
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+  };
+  
   class GUIManager
   {
     private:
@@ -25,11 +39,12 @@ namespace GUIMan
       void do_draw();
       
     public:
+      KanaTable::Kana display_kana[7];
+      int notes_on;
       MenuWindow current_window;
       GUIManager(GLCDManager *);
       void draw();
-      KanaTable::Kana display_kana[7];
-      int notes_on;
+      void handle_menu_input(ButtonValue);
   };
   
 };

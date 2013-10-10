@@ -1,5 +1,5 @@
-#ifndef MIDIMANAGER_H
-#define MIDIMANAGER_H
+#ifndef GSMIDIMAP_H
+#define GSMIDIMAP_H
 
 #include <GinSing.h>
 
@@ -14,10 +14,5 @@ static const GSNote GS_MIDINotes[] =
     C_6, CS_6, D_6, DS_6, E_6, F_6, FS_6, G_6, GS_6, A_6, AS_6, B_6,
     C_7, CS_7, D_7, DS_7, E_7, F_7, FS_7, G_7, GS_7, A_7, AS_7, B_7,
   };
-  
-class MIDIManager
-{
-  //todo
-};
 
 #endif

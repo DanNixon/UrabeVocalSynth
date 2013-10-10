@@ -5,7 +5,7 @@
 
 #include <GinSing.h>
 #include "KanaTable.h"
-#include "MIDIManager.h"
+#include "GSMidiMap.h"
 
 static GSAllophone kana_map[KanaTable::KANA_COUNT][3] =
   {
@@ -26,6 +26,24 @@ static GSAllophone kana_map[KanaTable::KANA_COUNT][3] =
     {_BE, _A}, {_BE, _I}, {_BE, _U}, {_BE, _E}, {_BO, _OE},
     {_PE, _A}, {_PE, _I}, {_PE, _U}, {_PE, _E}, {_PO, _OE}
   };
+
+namespace JpSynthConfig
+{
+  enum DataType
+  {
+    INT,
+    FLOAT,
+    BOOL
+  };
+  
+  struct ConfigOption
+  {
+    char *name;
+    DataType type;
+    float max_val;
+    float min_value;
+  };
+};
 
 class JpSynthManager
 {
