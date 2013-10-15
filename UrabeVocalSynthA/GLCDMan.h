@@ -4,6 +4,7 @@
 #include <U8glib.h>
 #include "hiragana.cpp"
 #include "KanaTable.h"
+#include "ConfigDataDef.h"
 
 static const char *hiragana[KanaTable::KANA_COUNT] =
   {
@@ -26,7 +27,7 @@ static const char *hiragana[KanaTable::KANA_COUNT] =
   };
 
 class GLCDManager
-{  
+{
   public:
     static const int GLCD_WIDTH;
     static const int GLCD_HEIGHT;
@@ -41,6 +42,7 @@ class GLCDManager
     void draw_buttons_upper(char *, char *);
     void draw_buttons_lower(char *, char *);
     void draw_kana_buffer(KanaTable::Kana[], int);
+    void draw_option(ConfigData::ConfigOption);
 };
 
 #endif

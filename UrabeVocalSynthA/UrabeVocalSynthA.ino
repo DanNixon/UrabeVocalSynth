@@ -16,8 +16,8 @@ using namespace GUIMan;
 GinSing GS;
 
 GLCDManager glcd_man;
-GUIManager gui_man(&glcd_man);
 JpSynthManager jp_synth_man;
+GUIManager gui_man(&glcd_man, &jp_synth_man);
 
 KanaTable::Kana p[] =
   {
@@ -141,14 +141,20 @@ void setup()
 
 void redraw()
 {
-  gui_man.current_window = JP_RUN;
-  for(int i=0; i<7; i++)
-  {
-    int index = jp_synth_man.get_buffer_position() + i;
-    if(jp_synth_man.get_notes_on()) index--;
-    gui_man.display_kana[i] = jp_synth_man.kana_buffer[index];
-  }
-  gui_man.notes_on = jp_synth_man.get_notes_on();
+  gui_man.current_window = JP_SETTINGS;
+  gui_man.current_option = 0;
+//  for(int i=0; i<7; i++)
+//  {
+//    int index = jp_synth_man.get_buffer_position() + i;
+//    if(jp_synth_man.get_notes_on()) index--;
+//    gui_man.display_kana[i] = jp_synth_man.kana_buffer[index];
+//  }
+//  gui_man.notes_on = jp_synth_man.get_notes_on();
+//  gui_man.display_option_count = jp_synth_man.option_count;
+//  for(int i=0; i<jp_synth_man.option_count; i++)
+//  {
+//     gui_man.display_options[i] = jp_synth_man.options[i];
+//  }
   gui_man.draw();
 }
 
@@ -179,6 +185,6 @@ void heartbeat()
 void loop()
 {
   heartbeat();
-  MIDI.read();
+//  MIDI.read();
 }
 

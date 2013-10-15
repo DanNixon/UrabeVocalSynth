@@ -3,6 +3,8 @@
 
 #include "GLCDMan.h"
 #include "KanaTable.h"
+#include "ConfigDataDef.h"
+#include "JpSynthMan.h"
 
 namespace GUIMan
 {  
@@ -36,13 +38,17 @@ namespace GUIMan
   {
     private:
       GLCDManager *glcd_man;
+      JpSynthManager *jps_man;
       void do_draw();
       
     public:
+      int current_option;
       KanaTable::Kana display_kana[7];
       int notes_on;
+      ConfigData::ConfigOption display_options[20];
+      int display_option_count;
       MenuWindow current_window;
-      GUIManager(GLCDManager *);
+      GUIManager(GLCDManager *, JpSynthManager *);
       void draw();
       void handle_menu_input(ButtonValue);
   };

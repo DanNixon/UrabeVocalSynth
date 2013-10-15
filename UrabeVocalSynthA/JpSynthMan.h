@@ -38,6 +38,7 @@ class JpSynthManager
   
   public:
     ConfigData::ConfigOption options[20];
+    int option_count;
     float blend_delay;
     float phoneame_delay;
     JpSynthManager();

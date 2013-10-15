@@ -61,9 +61,25 @@ void GLCDManager::draw_kana_buffer(KanaTable::Kana displayKana[], int synth_on)
   }
 }
 
+void GLCDManager::draw_option(ConfigData::ConfigOption option)
+{
+  this->u8g.setFont(u8g_font_helvR08);
+  this->u8g.drawStr(0, this->HEADER_HEIGHT + 12, option.name);
+  this->u8g.setFont(u8g_font_unifont);
+  char value_str[30];
+  if(option.type == ConfigData::ENUM)
+  {
+    sprintf(value_str, "%s", option.values[option.value]);
+  }
+  else
+  {
+    sprintf(value_str, "%d", option.value);
+  }
+  this->u8g.drawStr(0, this->HEADER_HEIGHT + 30, value_str); 
+}
+
 void GLCDManager::draw_base()
 {
-//  this->u8g.setFont(u8g_font_unifont);
   this->u8g.drawHLine(0, this->HEADER_HEIGHT, 128);
   this->u8g.drawHLine(0, this->GLCD_HEIGHT - this->FOOTER_HEIGHT, 128);
 }

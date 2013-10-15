@@ -2,10 +2,11 @@
 
 using namespace GUIMan;
 
-GUIManager::GUIManager(GLCDManager *glcd_manager)
+GUIManager::GUIManager(GLCDManager *glcd_manager, JpSynthManager *jp_synth_manager)
 {
   this->current_window = W_NULL;
   this->glcd_man = glcd_manager;
+  this->jps_man = jp_synth_manager;
 }
 
 void GUIManager::draw()
@@ -39,11 +40,21 @@ void GUIManager::do_draw()
       this->glcd_man->draw_title("Synth S");
       this->glcd_man->draw_buttons_upper("Back", "");
       this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default");
+//      for(int i=0; i<this->synth_man->option_count; i++)
+//      {
+//        this->display_options[i] = this->synth_man->options[i];
+//      }
+//      glcd_man->draw_option(this->display_options[this->current_option]);
       break;
     case JP_SETTINGS:
       this->glcd_man->draw_title("Vocal S");
       this->glcd_man->draw_buttons_upper("Back", "");
       this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default");
+      for(int i=0; i<this->jps_man->option_count; i++)
+      {
+        this->display_options[i] = this->jps_man->options[i];
+      }
+      glcd_man->draw_option(this->display_options[this->current_option]);
       break;
     case SYNTH_RUN:
       this->glcd_man->draw_title("Synth");

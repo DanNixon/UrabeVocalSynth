@@ -3,8 +3,12 @@
 JpSynthManager::JpSynthManager()
 {
   this->buffer_position = 0;
-  ConfigData::ConfigOption opt = {"test", ConfigData::ENUM, 0, {"A", "B", "C"}, 3};
-  //todo: init menu options
+  this->option_count = 5;
+  this->options[1] = {"Blend Speed Value", ConfigData::INT, 500, {"-1", "1000"}, -1};
+  this->options[0] = {"Blend Speed Source", ConfigData::ENUM, 0, {"Preset", "MIDI",}, 2};
+  this->options[3] = {"Delay Value", ConfigData::INT, 1000, {"-1", "1000"}, -1};
+  this->options[2] = {"Delay Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[4] = {"Kana Source", ConfigData::ENUM, 0, {"Keyboard", "File"}, 2};
 }
 
 void JpSynthManager::init(GinSing gs)
@@ -15,10 +19,20 @@ void JpSynthManager::init(GinSing gs)
 
 void JpSynthManager::speak_kana(KanaTable::Kana kana, GSNote note)
 {
-//  voice->setBlendSpeed(0.2f);
-//  voice->setDelay(0.02f);
-  voice->setNote(note);
-  voice->speak(kana_map[kana]);
+  int blend_speed = this->options[1].value;
+  int delay = this->options[3].value;
+  if(blend_speed != -1)
+  {
+    float f_blend_speed = (float) blend_speed / 100.0f;
+    this->voice->setBlendSpeed(f_blend_speed);
+  }
+  if(delay != -1)
+  {
+    float f_delay = (float) delay / 100.0f;
+    this->voice->setDelay(f_delay);
+  }
+  this->voice->setNote(note);
+  this->voice->speak(kana_map[kana]);
 }
 
 void JpSynthManager::end_speak()
