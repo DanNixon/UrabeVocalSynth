@@ -39,7 +39,7 @@ void GUIManager::do_draw()
     case SYNTH_SETTINGS:
       this->glcd_man->draw_title("Synth S");
       this->glcd_man->draw_buttons_upper("Back", "");
-      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default");
+//      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default");
 //      for(int i=0; i<this->synth_man->option_count; i++)
 //      {
 //        this->display_options[i] = this->synth_man->options[i];
@@ -49,7 +49,7 @@ void GUIManager::do_draw()
     case JP_SETTINGS:
       this->glcd_man->draw_title("Vocal S");
       this->glcd_man->draw_buttons_upper("Back", "");
-      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default");
+//      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default");
       for(int i=0; i<this->jps_man->option_count; i++)
       {
         this->display_options[i] = this->jps_man->options[i];
@@ -72,5 +72,88 @@ void GUIManager::do_draw()
 
 void GUIManager::handle_menu_input(ButtonValue b_val)
 {
-  //todo
+  switch(this->current_window)
+  {
+    case MAIN:
+      switch(b_val)
+      {
+        case F3: //Synth
+          this->current_window = SYNTH_MENU;
+          break;
+        case F4: //Vocal
+          this->current_window = JP_MENU;
+          break;
+      }
+      break;
+    case SYNTH_MENU:
+      switch(b_val)
+      {
+        case F1: //Back
+          this->current_window = MAIN;
+          break;
+        case F2: //Run
+          this->current_window = SYNTH_RUN;
+          break;
+        case F3: //Settings
+          this->current_window = SYNTH_SETTINGS;
+          break;
+      }
+      break;
+    case JP_MENU:
+      switch(b_val)
+      {
+        case F1: //Back
+          this->current_window = MAIN;
+          break;
+        case F2: //Run
+          this->current_window = JP_RUN;
+          break;
+        case F3: //Settings
+          this->current_window = JP_SETTINGS;
+          break;
+      }
+      break;
+    case SYNTH_SETTINGS:
+      switch(b_val)
+      {
+        case F1: //Back
+          this->current_window = SYNTH_MENU;
+          break;
+      }
+      break;
+    case JP_SETTINGS:
+      switch(b_val)
+      {
+        case F1: //Back
+          this->current_window = JP_MENU;
+          break;
+      }
+      break;
+    case SYNTH_RUN:
+      switch(b_val)
+      {
+        case F1: //Exit
+          this->current_window = SYNTH_MENU;
+          break;
+        case F3: //Panic
+          //
+          break;
+      }
+      break;
+    case JP_RUN:
+      switch(b_val)
+      {
+        case F1: //Exit
+          this->current_window = JP_MENU;
+          break;
+        case F3: //Panic
+          //
+          break;
+        case F4: //Clear Buffer
+          //
+          break;
+      }
+      break;
+  }
+  this->do_draw();
 }
