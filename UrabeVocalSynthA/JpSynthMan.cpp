@@ -45,7 +45,8 @@ void JpSynthManager::handle_midi_note(byte pitch, byte velocity)
 {
   if(velocity == 0)
   {
-    this->notes_on--;
+    if(this->notes_on > 0)
+      this->notes_on--;
     if(this->notes_on == 0)
       this->end_speak();
   }
@@ -61,12 +62,37 @@ void JpSynthManager::handle_midi_note(byte pitch, byte velocity)
   }
 }
 
-int JpSynthManager::get_notes_on()
+void JpSynthManager::kana_buffer_clear()
 {
-  return this->notes_on;
+  this->end_speak();
+  this->notes_on = 0;
+  for(int i=0; i<100; i++)
+    this->kana_buffer[i] = KanaTable::_NULL;
 }
 
-int JpSynthManager::get_buffer_position()
+void JpSynthManager::kana_buffer_add(KanaTable::Kana kana)
 {
-  return this->buffer_position;
+  //TODO
+}
+
+void JpSynthManager::kana_buffer_rm_last()
+{
+  //TODO
+}
+
+int JpSynthManager::get_notes_on() { return this->notes_on; }
+int JpSynthManager::get_buffer_position() { return this->buffer_position; }
+
+void JpSynthManager::set_phoneame_delay(int pd)
+{
+  if(pd > 1000) pd = 1000;
+  if((pd < 0) && (pd != -1)) pd = 0;
+  this->phoneame_delay = pd;
+}
+
+void JpSynthManager::set_blend_speed(int bs)
+{
+  if(bs > 1000) bs = 1000;
+  if((bs < 0) && (bs != -1)) bs = 0;
+  this->blend_speed = bs;
 }

@@ -39,8 +39,8 @@ void GUIManager::do_draw()
     case SYNTH_SETTINGS:
       this->glcd_man->draw_title("Synth S");
       this->glcd_man->draw_buttons_upper("Back", "");
-//      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default");
-//      for(int i=0; i<this->synth_man->option_count; i++)
+//      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default"); //TODO: After implementing EEPROM value saving
+//      for(int i=0; i<this->synth_man->option_count; i++) //TODO: Re-add after implementation of waveform synth manager
 //      {
 //        this->display_options[i] = this->synth_man->options[i];
 //      }
@@ -49,7 +49,7 @@ void GUIManager::do_draw()
     case JP_SETTINGS:
       this->glcd_man->draw_title("Vocal S");
       this->glcd_man->draw_buttons_upper("Back", "");
-//      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default");
+//      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default"); //TODO: After implementing EEPROM value saving
       for(int i=0; i<this->jps_man->option_count; i++)
       {
         this->display_options[i] = this->jps_man->options[i];
@@ -136,7 +136,7 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           this->current_window = SYNTH_MENU;
           break;
         case F3: //Panic
-          //
+          //TODO: All notes off (after implement waveform synth manager)
           break;
       }
       break;
@@ -147,10 +147,10 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           this->current_window = JP_MENU;
           break;
         case F3: //Panic
-          //
+          this->jps_man->end_speak();
           break;
         case F4: //Clear Buffer
-          //
+          this->jps_man->kana_buffer_clear();
           break;
       }
       break;

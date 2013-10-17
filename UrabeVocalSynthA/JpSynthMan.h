@@ -34,13 +34,13 @@ class JpSynthManager
     GinSingVoice *voice;
     int notes_on;
     int buffer_position;
+    int blend_speed;
+    int phoneame_delay;
     void speak_kana(KanaTable::Kana, GSNote);
   
   public:
     ConfigData::ConfigOption options[20];
     int option_count;
-    float blend_delay;
-    float phoneame_delay;
     JpSynthManager();
     void init(GinSing GS);
     void end_speak();
@@ -48,6 +48,11 @@ class JpSynthManager
     KanaTable::Kana kana_buffer[KANA_BUFFER_SIZE];
     int get_notes_on();
     int get_buffer_position();
+    void set_blend_speed(int);
+    void set_phoneame_delay(int);
+    void kana_buffer_clear();
+    void kana_buffer_add(KanaTable::Kana);
+    void kana_buffer_rm_last();
 };
 
 #endif
