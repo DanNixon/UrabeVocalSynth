@@ -6,6 +6,7 @@
 #include "GLCDMan.h"
 #include "GUIMan.h"
 #include "JpSynthMan.h"
+#include "KeypadHandler.h"
 
 #define rcvPin 4
 #define sndPin 3

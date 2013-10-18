@@ -77,10 +77,10 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
     case MAIN:
       switch(b_val)
       {
-        case F3: //Synth
+        case _F3: //Synth
           this->current_window = SYNTH_MENU;
           break;
-        case F4: //Vocal
+        case _F4: //Vocal
           this->current_window = JP_MENU;
           break;
       }
@@ -88,13 +88,13 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
     case SYNTH_MENU:
       switch(b_val)
       {
-        case F1: //Back
+        case _F1: //Back
           this->current_window = MAIN;
           break;
-        case F2: //Run
+        case _F2: //Run
           this->current_window = SYNTH_RUN;
           break;
-        case F3: //Settings
+        case _F3: //Settings
           this->current_window = SYNTH_SETTINGS;
           break;
       }
@@ -102,13 +102,13 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
     case JP_MENU:
       switch(b_val)
       {
-        case F1: //Back
+        case _F1: //Back
           this->current_window = MAIN;
           break;
-        case F2: //Run
+        case _F2: //Run
           this->current_window = JP_RUN;
           break;
-        case F3: //Settings
+        case _F3: //Settings
           this->current_window = JP_SETTINGS;
           break;
       }
@@ -116,7 +116,7 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
     case SYNTH_SETTINGS:
       switch(b_val)
       {
-        case F1: //Back
+        case _F1: //Back
           this->current_window = SYNTH_MENU;
           break;
       }
@@ -124,7 +124,7 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
     case JP_SETTINGS:
       switch(b_val)
       {
-        case F1: //Back
+        case _F1: //Back
           this->current_window = JP_MENU;
           break;
       }
@@ -132,10 +132,10 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
     case SYNTH_RUN:
       switch(b_val)
       {
-        case F1: //Exit
+        case _F1: //Exit
           this->current_window = SYNTH_MENU;
           break;
-        case F3: //Panic
+        case _F3: //Panic
           //TODO: All notes off (after implement waveform synth manager)
           break;
       }
@@ -143,13 +143,13 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
     case JP_RUN:
       switch(b_val)
       {
-        case F1: //Exit
+        case _F1: //Exit
           this->current_window = JP_MENU;
           break;
-        case F3: //Panic
+        case _F3: //Panic
           this->jps_man->end_speak();
           break;
-        case F4: //Clear Buffer
+        case _F4: //Clear Buffer
           this->jps_man->kana_buffer_clear();
           break;
       }

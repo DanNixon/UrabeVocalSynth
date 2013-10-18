@@ -19,19 +19,22 @@ namespace GUIMan
     JP_SETTINGS,
     JP_RUN
   };
-  
+
   enum ButtonValue
   {
-    F1, //GLCD Top Left
-    F2, //GLCD Top Right
-    F3, //GLCD Bottom Left
-    F4, //GLCD Bottom Right
-    SELECT,
-    BACK,
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
+    _F1 = 0, //GLCD Top Left
+    _F2,     //GLCD Top Right
+    _F3,     //GLCD Bottom Left
+    _F4,     //GLCD Bottom Right
+    _SELECT,
+    _BACK,
+    _UP,
+    _DOWN,
+    _LEFT,
+    _RIGHT,
+    _KANA,
+
+    _NULL = 255
   };
   
   class GUIManager
