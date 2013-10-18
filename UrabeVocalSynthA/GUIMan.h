@@ -27,12 +27,10 @@ namespace GUIMan
     _F3,     //GLCD Bottom Left
     _F4,     //GLCD Bottom Right
     _SELECT,
-    _BACK,
     _UP,
     _DOWN,
     _LEFT,
     _RIGHT,
-    _KANA,
 
     _NULL = 255
   };

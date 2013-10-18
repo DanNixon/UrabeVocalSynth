@@ -7,8 +7,10 @@ KeypadHandler::KeypadHandler(GUIManager *gm, JpSynthManager *jpsm)
   this->gui_man = gm;
   this->jps_man = jpsm;
   this->set_up_pins();
-  this->last_button = _NULL;
-  this->last_kana = KanaTable::_NULL;
+  for(int i=0; i < PHYSICAL_BUTTON_COUNT; i++)
+  {
+    this->button_last[i] = digitalRead(i);
+  }
 }
 
 void KeypadHandler::set_up_pins()
@@ -46,15 +48,20 @@ void KeypadHandler::set_up_pins()
   }
 }
 
-void KeypadHandler::scan_menu()
+GUIMan::ButtonValue KeypadHandler::scan_menu()
+{
+  int limit = (int) O;
+  for(int i=0; i<limit; i++)
+  {
+    GUIMan::ButtonValue b_val = (GUIMan::ButtonValue) i;
+    if(digitalRead(this->button_pins[i]))
+    {
+      return b_val;
+    }
+  }
+}
+
+KanaTable::Kana KeypadHandler::scan_kana()
 {
 
 }
-
-void KeypadHandler::scan_kana()
-{
-
-}
-
-ButtonValue KeypadHandler::get_last_button() { return this->last_button; }
-KanaTable::Kana KeypadHandler::get_last_kana() { return this->last_kana; }
