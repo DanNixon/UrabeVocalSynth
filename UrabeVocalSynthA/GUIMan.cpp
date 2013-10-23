@@ -102,6 +102,7 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           this->current_window = SYNTH_RUN;
           break;
         case _F3: //Settings
+          this->current_option = 0;
           this->current_window = SYNTH_SETTINGS;
           break;
       }
@@ -116,6 +117,7 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           this->current_window = JP_RUN;
           break;
         case _F3: //Settings
+          this->current_option = 0;
           this->current_window = JP_SETTINGS;
           break;
       }
@@ -171,9 +173,11 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           break;
         case _F3: //Panic
           this->jps_man->end_speak();
+          //TODO: Fix GLCD issue
           break;
         case _F4: //Clear Buffer
           this->jps_man->kana_buffer_clear();
+          //TODO: FIx GLCD issue
           break;
       }
       break;

@@ -53,12 +53,6 @@ GUIMan::ButtonValue KeypadHandler::scan_menu()
   {
     GUIMan::ButtonValue b_val = (GUIMan::ButtonValue) i;
     int current_state = digitalRead(this->button_pins[i]);
-//    Serial.print("i:");
-//    Serial.print(i);
-//    Serial.print(", last:");
-//    Serial.print(this->button_last[i]);
-//    Serial.print(", current:");
-//    Serial.println(current_state);
     if(current_state != this->button_last[i])
     {
       this->button_last[i] = current_state;
@@ -71,5 +65,5 @@ GUIMan::ButtonValue KeypadHandler::scan_menu()
 
 KanaTable::Kana KeypadHandler::scan_kana()
 {
-
+  //TODO: Implement Kana Key Scanning
 }
