@@ -136,16 +136,24 @@ void setup()
   MIDI.setHandleNoteOn(midi_note_handle);
   GS.begin(rcvPin, sndPin, ovfPin);
   jp_synth_man.init(GS);
-  for(int i=0; i<50; i++)
-    jp_synth_man.kana_buffer[i] = p[i];
-  for(int i = 0; i < 50; i++)
+  for(int i=0; i<60; i++)
     jp_synth_man.kana_buffer[i] = p[i];
   gui_man.draw();
 }
 
 void midi_note_handle(byte channel, byte pitch, byte velocity)
 {
-  jp_synth_man.handle_midi_note(pitch, velocity);
+  switch(gui_man.get_system_mode())
+  {
+    case MENU:
+      break;
+    case WAVEFORM:
+      //Parse waveform synth MIDI here
+      break;
+    case VOCAL:
+      jp_synth_man.handle_midi_note(pitch, velocity);
+      break;
+  }
   gui_man.draw();
 }
 

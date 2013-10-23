@@ -7,7 +7,14 @@
 #include "JpSynthMan.h"
 
 namespace GUIMan
-{  
+{
+  enum SystemMode
+  {
+    MENU,
+    WAVEFORM,
+    VOCAL
+  };
+
   enum MenuWindow
   {
     W_NULL = 255,
@@ -40,6 +47,7 @@ namespace GUIMan
     private:
       GLCDManager *glcd_man;
       JpSynthManager *jps_man;
+      SystemMode mode;
       void do_draw();
       void change_option(ConfigData::ConfigOption *, int);
       int current_option;
@@ -47,6 +55,7 @@ namespace GUIMan
       
     public:
       GUIManager(GLCDManager *, JpSynthManager *);
+      SystemMode get_system_mode();
       void draw();
       void handle_menu_input(ButtonValue);
   };

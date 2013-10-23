@@ -5,9 +5,12 @@ using namespace GUIMan;
 GUIManager::GUIManager(GLCDManager *glcd_manager, JpSynthManager *jp_synth_manager)
 {
   this->current_window = MAIN;
+  this->mode = MENU;
   this->glcd_man = glcd_manager;
   this->jps_man = jp_synth_manager;
 }
+
+SystemMode GUIManager::get_system_mode() { return this->mode; }
 
 void GUIManager::draw()
 {
@@ -19,6 +22,7 @@ void GUIManager::draw()
 
 void GUIManager::do_draw()
 {
+  this->mode = MENU;
   this->glcd_man->draw_base();
   switch(this->current_window)
   {
@@ -49,11 +53,13 @@ void GUIManager::do_draw()
       glcd_man->draw_option(this->jps_man->options[this->current_option]);
       break;
     case SYNTH_RUN:
+      this->mode = WAVEFORM;
       this->glcd_man->draw_title("Synth");
       this->glcd_man->draw_buttons_upper("Back", "");
       this->glcd_man->draw_buttons_lower("Panic", "");
       break;
     case JP_RUN:
+      this->mode = VOCAL;
       this->glcd_man->draw_title("Vocal");
       this->glcd_man->draw_buttons_upper("Back", "");
       this->glcd_man->draw_buttons_lower("Panic", "Clr Buf");
