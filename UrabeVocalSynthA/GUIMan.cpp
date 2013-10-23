@@ -50,14 +50,23 @@ void GUIManager::do_draw()
       break;
     case SYNTH_RUN:
       this->glcd_man->draw_title("Synth");
-      this->glcd_man->draw_buttons_upper("Exit", "");
+      this->glcd_man->draw_buttons_upper("Back", "");
       this->glcd_man->draw_buttons_lower("Panic", "");
       break;
     case JP_RUN:
       this->glcd_man->draw_title("Vocal");
-      this->glcd_man->draw_buttons_upper("Exit", "");
+      this->glcd_man->draw_buttons_upper("Back", "");
       this->glcd_man->draw_buttons_lower("Panic", "Clr Buf");
-      this->glcd_man->draw_kana_buffer(this->display_kana, this->notes_on);
+      KanaTable::Kana disp_kana[9];
+      int offset = 0;
+      if(this->jps_man->get_notes_on())
+        offset = -1;
+      for(int i=0; i<9; i++)
+      {
+        int position = i + this->jps_man->get_buffer_position() + offset;
+        disp_kana[i] = this->jps_man->kana_buffer[position];
+      }
+      this->glcd_man->draw_kana_buffer(disp_kana, this->jps_man->get_notes_on());
       break;
   }
 }

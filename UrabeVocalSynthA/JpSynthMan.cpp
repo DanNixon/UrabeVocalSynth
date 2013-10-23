@@ -4,9 +4,9 @@ JpSynthManager::JpSynthManager()
 {
   this->buffer_position = 0;
   this->option_count = 5;
-  this->options[1] = {"Blend Speed Value", ConfigData::INT, 500, {"-1", "1000"}, -1};
+  this->options[1] = {"Blend Speed Value", ConfigData::INT, -1, {"-1", "1000"}, -1};
   this->options[0] = {"Blend Speed Source", ConfigData::ENUM, 0, {"Preset", "MIDI",}, 2};
-  this->options[3] = {"Delay Value", ConfigData::INT, 1000, {"-1", "1000"}, -1};
+  this->options[3] = {"Delay Value", ConfigData::INT, -1, {"-1", "1000"}, -1};
   this->options[2] = {"Delay Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
   this->options[4] = {"Kana Source", ConfigData::ENUM, 0, {"Keyboard", "File"}, 2};
 }

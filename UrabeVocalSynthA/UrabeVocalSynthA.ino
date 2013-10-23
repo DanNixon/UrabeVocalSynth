@@ -132,39 +132,21 @@ KanaTable::Kana p[] =
 void setup()
 {
   pinMode(22, OUTPUT);
-//  MIDI.begin(MIDI_CHANNEL_OMNI);
-//  MIDI.setHandleNoteOn(midi_note_handle);
+  MIDI.begin(MIDI_CHANNEL_OMNI);
+  MIDI.setHandleNoteOn(midi_note_handle);
   GS.begin(rcvPin, sndPin, ovfPin);
   jp_synth_man.init(GS);
   for(int i=0; i<50; i++)
     jp_synth_man.kana_buffer[i] = p[i];
-  redraw();
-  Serial.begin(115200);
-}
-
-void redraw()
-{
-//  gui_man.current_window = JP_SETTINGS;
-//  gui_man.current_option = 0;
-//  for(int i=0; i<7; i++)
-//  {
-//    int index = jp_synth_man.get_buffer_position() + i;
-//    if(jp_synth_man.get_notes_on()) index--;
-//    gui_man.display_kana[i] = jp_synth_man.kana_buffer[index];
-//  }
-//  gui_man.notes_on = jp_synth_man.get_notes_on();
-//  gui_man.display_option_count = jp_synth_man.option_count;
-//  for(int i=0; i<jp_synth_man.option_count; i++)
-//  {
-//     gui_man.display_options[i] = jp_synth_man.options[i];
-//  }
+  for(int i = 0; i < 50; i++)
+    jp_synth_man.kana_buffer[i] = p[i];
   gui_man.draw();
 }
 
 void midi_note_handle(byte channel, byte pitch, byte velocity)
 {
   jp_synth_man.handle_midi_note(pitch, velocity);
-  redraw();
+  gui_man.draw();
 }
 
 long last_hb = 0;
@@ -189,8 +171,7 @@ void loop()
 {
   heartbeat();
   ButtonValue result = key_man.scan_menu();
-  if(result != _NULL) {
+  if(result != _NULL)
     gui_man.handle_menu_input(result);
-  }
-//  MIDI.read();
+  MIDI.read();
 }

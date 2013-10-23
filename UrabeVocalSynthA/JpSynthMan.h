@@ -7,6 +7,7 @@
 #include "KanaTable.h"
 #include "GSMidiMap.h"
 #include "ConfigDataDef.h"
+#include "GLCDMan.h"
 
 static GSAllophone kana_map[KanaTable::KANA_COUNT][3] =
   {
@@ -36,6 +37,7 @@ class JpSynthManager
     int buffer_position;
     int blend_speed;
     int phoneame_delay;
+    GLCDManager *glcd_man;
     void speak_kana(KanaTable::Kana, GSNote);
   
   public:

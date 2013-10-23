@@ -42,17 +42,14 @@ namespace GUIMan
       JpSynthManager *jps_man;
       void do_draw();
       void change_option(ConfigData::ConfigOption *, int);
+      int current_option;
+      MenuWindow current_window;
       
     public:
-      int current_option;
-      KanaTable::Kana display_kana[7];
-      int notes_on;
-      MenuWindow current_window;
       GUIManager(GLCDManager *, JpSynthManager *);
       void draw();
       void handle_menu_input(ButtonValue);
   };
-  
 };
 
 #endif
