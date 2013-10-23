@@ -7,7 +7,14 @@
 #include "JpSynthMan.h"
 
 namespace GUIMan
-{  
+{
+  enum SystemMode
+  {
+    MENU,
+    WAVEFORM,
+    VOCAL
+  };
+
   enum MenuWindow
   {
     W_NULL = 255,
@@ -19,19 +26,20 @@ namespace GUIMan
     JP_SETTINGS,
     JP_RUN
   };
-  
+
   enum ButtonValue
   {
-    F1, //GLCD Top Left
-    F2, //GLCD Top Right
-    F3, //GLCD Bottom Left
-    F4, //GLCD Bottom Right
-    SELECT,
-    BACK,
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
+    _F1 = 0, //GLCD Top Left
+    _F2,     //GLCD Top Right
+    _F3,     //GLCD Bottom Left
+    _F4,     //GLCD Bottom Right
+    _SELECT,
+    _LEFT,
+    _UP,
+    _RIGHT,
+    _DOWN,
+
+    _NULL = 255
   };
   
   class GUIManager
@@ -39,20 +47,18 @@ namespace GUIMan
     private:
       GLCDManager *glcd_man;
       JpSynthManager *jps_man;
+      SystemMode mode;
       void do_draw();
+      void change_option(ConfigData::ConfigOption *, int);
+      int current_option;
+      MenuWindow current_window;
       
     public:
-      int current_option;
-      KanaTable::Kana display_kana[7];
-      int notes_on;
-      ConfigData::ConfigOption display_options[20];
-      int display_option_count;
-      MenuWindow current_window;
       GUIManager(GLCDManager *, JpSynthManager *);
+      SystemMode get_system_mode();
       void draw();
       void handle_menu_input(ButtonValue);
   };
-  
 };
 
 #endif

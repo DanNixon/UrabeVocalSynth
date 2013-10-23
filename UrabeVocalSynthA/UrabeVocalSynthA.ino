@@ -6,6 +6,7 @@
 #include "GLCDMan.h"
 #include "GUIMan.h"
 #include "JpSynthMan.h"
+#include "KeypadHandler.h"
 
 #define rcvPin 4
 #define sndPin 3
@@ -18,6 +19,7 @@ GinSing GS;
 GLCDManager glcd_man;
 JpSynthManager jp_synth_man;
 GUIManager gui_man(&glcd_man, &jp_synth_man);
+Keypad::KeypadHandler key_man(&gui_man, &jp_synth_man);
 
 KanaTable::Kana p[] =
   {
@@ -134,34 +136,25 @@ void setup()
   MIDI.setHandleNoteOn(midi_note_handle);
   GS.begin(rcvPin, sndPin, ovfPin);
   jp_synth_man.init(GS);
-  for(int i=0; i<50; i++)
+  for(int i=0; i<60; i++)
     jp_synth_man.kana_buffer[i] = p[i];
-  redraw();
-}
-
-void redraw()
-{
-  gui_man.current_window = JP_SETTINGS;
-  gui_man.current_option = 0;
-//  for(int i=0; i<7; i++)
-//  {
-//    int index = jp_synth_man.get_buffer_position() + i;
-//    if(jp_synth_man.get_notes_on()) index--;
-//    gui_man.display_kana[i] = jp_synth_man.kana_buffer[index];
-//  }
-//  gui_man.notes_on = jp_synth_man.get_notes_on();
-//  gui_man.display_option_count = jp_synth_man.option_count;
-//  for(int i=0; i<jp_synth_man.option_count; i++)
-//  {
-//     gui_man.display_options[i] = jp_synth_man.options[i];
-//  }
   gui_man.draw();
 }
 
 void midi_note_handle(byte channel, byte pitch, byte velocity)
 {
-  jp_synth_man.handle_midi_note(pitch, velocity);
-  redraw();
+  switch(gui_man.get_system_mode())
+  {
+    case MENU:
+      break;
+    case WAVEFORM:
+      //Parse waveform synth MIDI here
+      break;
+    case VOCAL:
+      jp_synth_man.handle_midi_note(pitch, velocity);
+      break;
+  }
+  gui_man.draw();
 }
 
 long last_hb = 0;
@@ -185,6 +178,8 @@ void heartbeat()
 void loop()
 {
   heartbeat();
-//  MIDI.read();
+  ButtonValue result = key_man.scan_menu();
+  if(result != _NULL)
+    gui_man.handle_menu_input(result);
+  MIDI.read();
 }
-
