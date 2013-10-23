@@ -19,6 +19,7 @@ GinSing GS;
 GLCDManager glcd_man;
 JpSynthManager jp_synth_man;
 GUIManager gui_man(&glcd_man, &jp_synth_man);
+Keypad::KeypadHandler key_man(&gui_man, &jp_synth_man);
 
 KanaTable::Kana p[] =
   {
@@ -131,19 +132,20 @@ KanaTable::Kana p[] =
 void setup()
 {
   pinMode(22, OUTPUT);
-  MIDI.begin(MIDI_CHANNEL_OMNI);
-  MIDI.setHandleNoteOn(midi_note_handle);
+//  MIDI.begin(MIDI_CHANNEL_OMNI);
+//  MIDI.setHandleNoteOn(midi_note_handle);
   GS.begin(rcvPin, sndPin, ovfPin);
   jp_synth_man.init(GS);
   for(int i=0; i<50; i++)
     jp_synth_man.kana_buffer[i] = p[i];
   redraw();
+  Serial.begin(115200);
 }
 
 void redraw()
 {
-  gui_man.current_window = JP_SETTINGS;
-  gui_man.current_option = 0;
+//  gui_man.current_window = JP_SETTINGS;
+//  gui_man.current_option = 0;
 //  for(int i=0; i<7; i++)
 //  {
 //    int index = jp_synth_man.get_buffer_position() + i;
@@ -186,6 +188,9 @@ void heartbeat()
 void loop()
 {
   heartbeat();
+  ButtonValue result = key_man.scan_menu();
+  if(result != _NULL) {
+    gui_man.handle_menu_input(result);
+  }
 //  MIDI.read();
 }
-

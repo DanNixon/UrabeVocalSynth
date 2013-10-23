@@ -4,7 +4,7 @@ using namespace GUIMan;
 
 GUIManager::GUIManager(GLCDManager *glcd_manager, JpSynthManager *jp_synth_manager)
 {
-  this->current_window = W_NULL;
+  this->current_window = MAIN;
   this->glcd_man = glcd_manager;
   this->jps_man = jp_synth_manager;
 }
@@ -40,21 +40,13 @@ void GUIManager::do_draw()
       this->glcd_man->draw_title("Synth S");
       this->glcd_man->draw_buttons_upper("Back", "");
 //      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default"); //TODO: After implementing EEPROM value saving
-//      for(int i=0; i<this->synth_man->option_count; i++) //TODO: Re-add after implementation of waveform synth manager
-//      {
-//        this->display_options[i] = this->synth_man->options[i];
-//      }
 //      glcd_man->draw_option(this->display_options[this->current_option]);
       break;
     case JP_SETTINGS:
       this->glcd_man->draw_title("Vocal S");
       this->glcd_man->draw_buttons_upper("Back", "");
 //      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default"); //TODO: After implementing EEPROM value saving
-      for(int i=0; i<this->jps_man->option_count; i++)
-      {
-        this->display_options[i] = this->jps_man->options[i];
-      }
-      glcd_man->draw_option(this->display_options[this->current_option]);
+      glcd_man->draw_option(this->jps_man->options[this->current_option]);
       break;
     case SYNTH_RUN:
       this->glcd_man->draw_title("Synth");
@@ -127,6 +119,22 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
         case _F1: //Back
           this->current_window = JP_MENU;
           break;
+        case _UP:
+          this->change_option(&this->jps_man->options[this->current_option], 1);
+          break;
+        case _DOWN:
+          this->change_option(&this->jps_man->options[this->current_option], -1);
+          break;
+        case _LEFT:
+          this->current_option--;
+          if(this->current_option < 0)
+            this->current_option = this->jps_man->option_count - 1;
+          break;
+        case _RIGHT:
+          this->current_option++;
+          if(this->current_option >= this->jps_man->option_count)
+            this->current_option = 0;
+          break;
       }
       break;
     case SYNTH_RUN:
@@ -155,5 +163,37 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
       }
       break;
   }
-  this->do_draw();
+  this->draw();
+}
+
+void GUIManager::change_option(ConfigData::ConfigOption *option, int direction)
+{
+  int precision = 1;
+  if(direction < 0)
+    precision = -1;
+  switch(option->type)
+  {
+    case ConfigData::INT:
+      if(option->value_count != -1)
+        precision *= option->value_count;
+      if(abs(precision) == 1)
+        precision *= 5; //Default Precision
+      option->value += precision;
+      int min;
+      int max;
+      sscanf(option->values[0], "%d", &min);
+      sscanf(option->values[1], "%d", &max);
+      if(option->value < min)
+        option->value = min;
+      if(option->value > max)
+        option->value = max;
+      break;
+    case ConfigData::ENUM:
+      option->value += precision;
+      if(option->value < 0)
+        option->value = option->value_count - 1;
+      if(option->value >= option->value_count)
+        option->value = 0;
+      break;
+  }
 }

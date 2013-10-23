@@ -27,10 +27,10 @@ namespace GUIMan
     _F3,     //GLCD Bottom Left
     _F4,     //GLCD Bottom Right
     _SELECT,
-    _UP,
-    _DOWN,
     _LEFT,
+    _UP,
     _RIGHT,
+    _DOWN,
 
     _NULL = 255
   };
@@ -41,13 +41,12 @@ namespace GUIMan
       GLCDManager *glcd_man;
       JpSynthManager *jps_man;
       void do_draw();
+      void change_option(ConfigData::ConfigOption *, int);
       
     public:
       int current_option;
       KanaTable::Kana display_kana[7];
       int notes_on;
-      ConfigData::ConfigOption display_options[20];
-      int display_option_count;
       MenuWindow current_window;
       GUIManager(GLCDManager *, JpSynthManager *);
       void draw();
