@@ -6,8 +6,8 @@ const int GLCDManager::HEADER_HEIGHT = 14;
 const int GLCDManager::FOOTER_HEIGHT = 15;
 const int GLCDManager::UPPER_BUTTON_WIDTH = 32;
 
-//D0, D1, D2, D3, D4, D5, D6, D7, EN, DI RS, RW R/W
-U8GLIB_ST7920_128X64_1X GLCDManager::u8g(40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50);
+//D0, D1, D2, D3, D4, D5, D6, D7, EN, RS, R/W
+U8GLIB_ST7920_128X64_1X GLCDManager::u8g(42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52);
 
 GLCDManager::GLCDManager()
 {

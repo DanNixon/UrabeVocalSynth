@@ -9,7 +9,7 @@ using namespace GUIMan;
 
 namespace Keypad
 {
-  enum PhysicalButtons
+  enum PhysicalButton
   {
     F1 = 0,
     F2,
@@ -18,10 +18,13 @@ namespace Keypad
     A, I, U, E, O,
     K, S, T, N, H, M, Y, R, W,
     NN,
-    YA, YU, YO
+    YA, YU, YO,
+    DAK, HANDAK,
+
+    _NONE = 255
   };
   
-  static const int PHYSICAL_BUTTON_COUNT = 22;
+  static const int PHYSICAL_BUTTON_COUNT = 24;
 
   class KeypadHandler
   {
@@ -31,6 +34,7 @@ namespace Keypad
       int button_last[PHYSICAL_BUTTON_COUNT];
       GUIManager *gui_man;
       JpSynthManager *jps_man;
+      PhysicalButton get_button(int, int, int);
    
     public:
       KeypadHandler(GUIManager *, JpSynthManager *);
