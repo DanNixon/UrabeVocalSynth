@@ -118,7 +118,7 @@ GUIMan::ButtonValue KeypadHandler::scan_menu()
 
 KanaTable::Kana KeypadHandler::scan_kana()
 {
-  PhysicalButton button = this->get_button(50, 4, PHYSICAL_BUTTON_COUNT);
+  PhysicalButton button = this->get_button(0, 4, PHYSICAL_BUTTON_COUNT);
   if(button == _NONE) return KanaTable::_NULL;
   if(button == NN) return KanaTable::_N;
   int button_val = (int) button;
@@ -129,9 +129,9 @@ KanaTable::Kana KeypadHandler::scan_kana()
   }
   if((button_val >= (int) K) && (button_val <= (int) W))
   {
-    PhysicalButton second_button = this->get_button(50, 4, PHYSICAL_BUTTON_COUNT);
+    PhysicalButton second_button = this->get_button(500, 4, PHYSICAL_BUTTON_COUNT);
     int second_val = (int) second_button;
-    PhysicalButton handak_button = this->get_button(50, ((int) DAK), ((int) HANDAK) + 1);
+    PhysicalButton handak_button = this->get_button(500, ((int) DAK), ((int) HANDAK) + 1);
     int handak_index = 0;
     switch(handak_button)
     {

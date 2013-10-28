@@ -180,6 +180,7 @@ void loop()
 {
   heartbeat();
   ButtonValue menu_result;
+  KanaTable::Kana k;
   switch(gui_man.get_system_mode())
   {
     case MENU:
@@ -189,7 +190,9 @@ void loop()
       break;
     case VOCAL:
 //      MIDI.read();
-      key_man.scan_kana();
+      k = key_man.scan_kana();
+      if(k != KanaTable::_NULL)
+        Serial.println((int) k);
       break;
     case WAVEFORM:
       break;
