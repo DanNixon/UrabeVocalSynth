@@ -131,8 +131,40 @@ KanaTable::Kana KeypadHandler::scan_kana()
   {
     PhysicalButton second_button = this->get_button(500, 4, PHYSICAL_BUTTON_COUNT);
     int second_val = (int) second_button;
-    PhysicalButton handak_button = this->get_button(500, ((int) DAK), ((int) HANDAK) + 1);
-    int handak_index = 0;
+    PhysicalButton third_button = this->get_button(500, 4, PHYSICAL_BUTTON_COUNT);
+    int third_val = (int) third_button;
+    
+    Serial.print("Second: ");
+    Serial.println(second_val);
+    Serial.print("Third: ");
+    Serial.println(third_val);
+
+    PhysicalButton handak_button;
+    int second_index = 0;
+
+    if((second_val >= (int) A) && (second_val <= (int) O))
+    {
+      second_index = second_val - ((int) A) + 1;
+      handak_button = third_button;
+    }
+    if((second_val >= (int) YA) && (second_val <= (int) YO))
+    {
+      second_index = second_val - ((int) YA) + 5;
+      handak_button = third_button;
+    }
+
+    if((third_val >= (int) A) && (third_val <= (int) O))
+    {
+      second_index = third_val - ((int) A) + 1;
+      handak_button = second_button;
+    }
+    if((third_val >= (int) YA) && (third_val <= (int) YO))
+    {
+      second_index = third_val - ((int) YA) + 5;
+      handak_button = second_button;
+    }
+
+    int handak_index;
     switch(handak_button)
     {
       case DAK:
@@ -141,16 +173,18 @@ KanaTable::Kana KeypadHandler::scan_kana()
       case HANDAK:
         handak_index = 2;
         break;
-      case _NONE:
+      default:
         handak_index = 0;
         break;
     }
-    int second_index = 0;
-    if((second_val >= (int) A) && (second_val <= (int) O))
-      second_index = second_val - ((int) A) + 1;
-    if((second_val >= (int) YA) && (second_val <= (int) YO))
-      second_index = second_val - ((int) YA) + 5;
     int const_index = button_val - ((int) K);
+
+    Serial.print(handak_index);
+    Serial.print(" - ");
+    Serial.print(second_index);
+    Serial.print(" - ");
+    Serial.println(const_index);
+
     return kana_button_mapping[handak_index][second_index][const_index];
   }
 }
