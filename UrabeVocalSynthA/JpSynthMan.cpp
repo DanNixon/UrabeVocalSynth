@@ -43,6 +43,7 @@ void JpSynthManager::end_speak()
   GSAllophone phrase[] = {_PA1, _ENDPHRASE};
   voice->speak(phrase);
   this->notes_on = 0;
+  this->kana_buffer[this->buffer_position - 1] = KanaTable::_NULL;
 }
 
 void JpSynthManager::handle_midi_note(byte pitch, byte velocity)
@@ -58,22 +59,22 @@ void JpSynthManager::handle_midi_note(byte pitch, byte velocity)
   {
     this->notes_on++;
     KanaTable::Kana kana = this->kana_buffer[this->buffer_position];
-    this->buffer_position++;
-    if(this->kana_buffer[this->buffer_position] != KanaTable::_NULL)
+    if(kana != KanaTable::_NULL)
     {
+      this->buffer_position++;
       GSNote note = GS_MIDINotes[pitch];
       this->speak_kana(kana, note);
       int rm_position = this->buffer_position - 2;
-      switch(rm_position)
-      {
-        case -2:
-          rm_position = KANA_BUFFER_SIZE - 2;
-          break;
-        case -1:
-          rm_position = KANA_BUFFER_SIZE - 1;
-          break;
-      } 
-      this->kana_buffer[rm_position] = KanaTable::_NULL;
+//      switch(rm_position)
+//      {
+//        case -2:
+//          rm_position = KANA_BUFFER_SIZE - 2;
+//          break;
+//        case -1:
+//          rm_position = KANA_BUFFER_SIZE - 1;
+//          break;
+//      } 
+//      this->kana_buffer[rm_position] = KanaTable::_NULL;
     }
   }
 }
