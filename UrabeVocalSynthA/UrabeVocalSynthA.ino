@@ -136,8 +136,8 @@ void setup()
 //  MIDI.setHandleNoteOn(midi_note_handle);
   GS.begin(rcvPin, sndPin, ovfPin);
   jp_synth_man.init(GS);
-  for(int i=0; i<60; i++)
-    jp_synth_man.kana_buffer[i] = p[i];
+//  for(int i=0; i<60; i++)
+//    jp_synth_man.kana_buffer_add(p[i]);
   gui_man.draw();
   Serial.begin(115200);
 }
@@ -190,9 +190,12 @@ void loop()
       break;
     case VOCAL:
 //      MIDI.read();
-      k = key_man.scan_kana();
-      if(k != KanaTable::_NULL)
-        Serial.println((int) k);
+      if(jp_synth_man.get_buffer_source() == 0)
+      {
+        k = key_man.scan_kana();
+        jp_synth_man.kana_buffer_add(k);
+        gui_man.draw();
+      }
       break;
     case WAVEFORM:
       break;

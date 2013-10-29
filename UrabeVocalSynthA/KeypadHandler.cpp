@@ -4,7 +4,7 @@ using namespace Keypad;
 
 //dak, vowel/y, const
 // K S T N H M Y R W
-KanaTable::Kana kana_button_mapping[][9][15] =
+KanaTable::Kana kana_button_mapping[][9][9] =
 {
   { //none
     {KanaTable::_K, KanaTable::_S, KanaTable::_T, KanaTable::_Ns, KanaTable::_H, KanaTable::_M, KanaTable::_Y, KanaTable::_R, KanaTable::_W},                     //small tsu
@@ -133,12 +133,7 @@ KanaTable::Kana KeypadHandler::scan_kana()
     int second_val = (int) second_button;
     PhysicalButton third_button = this->get_button(500, 4, PHYSICAL_BUTTON_COUNT);
     int third_val = (int) third_button;
-    
-    Serial.print("Second: ");
-    Serial.println(second_val);
-    Serial.print("Third: ");
-    Serial.println(third_val);
-
+ 
     PhysicalButton handak_button;
     int second_index = 0;
 
@@ -178,12 +173,6 @@ KanaTable::Kana KeypadHandler::scan_kana()
         break;
     }
     int const_index = button_val - ((int) K);
-
-    Serial.print(handak_index);
-    Serial.print(" - ");
-    Serial.print(second_index);
-    Serial.print(" - ");
-    Serial.println(const_index);
 
     return kana_button_mapping[handak_index][second_index][const_index];
   }

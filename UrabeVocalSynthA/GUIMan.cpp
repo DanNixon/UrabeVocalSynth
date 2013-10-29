@@ -145,11 +145,11 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
         case _LEFT:
           this->current_option--;
           if(this->current_option < 0)
-            this->current_option = this->jps_man->option_count - 1;
+            this->current_option = this->jps_man->get_option_count() - 1;
           break;
         case _RIGHT:
           this->current_option++;
-          if(this->current_option >= this->jps_man->option_count)
+          if(this->current_option >= this->jps_man->get_option_count())
             this->current_option = 0;
           break;
       }

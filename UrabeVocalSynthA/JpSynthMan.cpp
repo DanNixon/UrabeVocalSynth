@@ -3,6 +3,9 @@
 JpSynthManager::JpSynthManager()
 {
   this->buffer_position = 0;
+  this->buffer_add_position = 0;
+  for(int i=0; i<KANA_BUFFER_SIZE; i++)
+    this->kana_buffer[i] = KanaTable::_NULL;
   this->option_count = 5;
   this->options[1] = {"Blend Speed Value", ConfigData::INT, -1, {"-1", "1000"}, -1};
   this->options[0] = {"Blend Speed Source", ConfigData::ENUM, 0, {"Preset", "MIDI",}, 2};
@@ -55,10 +58,12 @@ void JpSynthManager::handle_midi_note(byte pitch, byte velocity)
     this->notes_on++;
     KanaTable::Kana kana = this->kana_buffer[this->buffer_position];
     this->buffer_position++;
-    if(this->kana_buffer[this->buffer_position] == KanaTable::_NULL)
-      this->buffer_position = 0;
-    GSNote note = GS_MIDINotes[pitch];
-    this->speak_kana(kana, note);
+    if(this->kana_buffer[this->buffer_position] != KanaTable::_NULL)
+    {
+      GSNote note = GS_MIDINotes[pitch];
+      this->speak_kana(kana, note);
+      this->kana_buffer[this->buffer_position] = KanaTable::_NULL;
+    }
   }
 }
 
@@ -72,27 +77,26 @@ void JpSynthManager::kana_buffer_clear()
 
 void JpSynthManager::kana_buffer_add(KanaTable::Kana kana)
 {
-  //TODO
+  if(kana != KanaTable::_NULL)
+  {
+    if(this->buffer_add_position >= KANA_BUFFER_SIZE)
+      this->buffer_add_position = 0;
+    if(this->kana_buffer[this->buffer_add_position] == KanaTable::_NULL)
+    {
+      this->kana_buffer[buffer_add_position] = kana;
+      this->buffer_add_position++;
+    }
+  }
 }
 
 void JpSynthManager::kana_buffer_rm_last()
 {
-  //TODO
+  if(this->buffer_add_position == 0)
+    this->buffer_add_position = KANA_BUFFER_SIZE - 1;
+  this->kana_buffer[this->buffer_add_position] = KanaTable::_NULL;
 }
 
+int JpSynthManager::get_buffer_source() { return this->options[4].value; }
 int JpSynthManager::get_notes_on() { return this->notes_on; }
 int JpSynthManager::get_buffer_position() { return this->buffer_position; }
-
-void JpSynthManager::set_phoneame_delay(int pd)
-{
-  if(pd > 1000) pd = 1000;
-  if((pd < 0) && (pd != -1)) pd = 0;
-  this->phoneame_delay = pd;
-}
-
-void JpSynthManager::set_blend_speed(int bs)
-{
-  if(bs > 1000) bs = 1000;
-  if((bs < 0) && (bs != -1)) bs = 0;
-  this->blend_speed = bs;
-}
+int JpSynthManager::get_option_count() { return this->option_count; }

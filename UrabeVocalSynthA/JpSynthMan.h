@@ -27,7 +27,7 @@ static GSAllophone kana_map[KanaTable::KANA_COUNT][3] =
     {_DE, _A}, {_Z, _I}, {_Z, _U}, {_DE, _E}, {_DO, _OE},
     {_BE, _A}, {_BE, _I}, {_BE, _U}, {_BE, _E}, {_BO, _OE},
     {_PE, _A}, {_PE, _I}, {_PE, _U}, {_PE, _E}, {_PO, _OE}
-  };
+  }; //TODO: Expand for additional KanaTable::Kana
 
 class JpSynthManager
 {
@@ -35,23 +35,24 @@ class JpSynthManager
     GinSingVoice *voice;
     int notes_on;
     int buffer_position;
+    int buffer_add_position;
     int blend_speed;
     int phoneame_delay;
+    int option_count;
     GLCDManager *glcd_man;
     void speak_kana(KanaTable::Kana, GSNote);
   
   public:
+    KanaTable::Kana kana_buffer[KANA_BUFFER_SIZE];
     ConfigData::ConfigOption options[20];
-    int option_count;
     JpSynthManager();
     void init(GinSing GS);
     void end_speak();
     void handle_midi_note(byte, byte);
-    KanaTable::Kana kana_buffer[KANA_BUFFER_SIZE];
+    int get_option_count();
+    int get_buffer_source();
     int get_notes_on();
     int get_buffer_position();
-    void set_blend_speed(int);
-    void set_phoneame_delay(int);
     void kana_buffer_clear();
     void kana_buffer_add(KanaTable::Kana);
     void kana_buffer_rm_last();
