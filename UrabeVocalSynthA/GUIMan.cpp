@@ -177,7 +177,6 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           break;
         case _F4: //Clear Buffer
           this->jps_man->kana_buffer_clear();
-          //TODO: FIx GLCD issue
           break;
       }
       break;

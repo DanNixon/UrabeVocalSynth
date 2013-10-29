@@ -132,14 +132,14 @@ KanaTable::Kana p[] =
 void setup()
 {
   pinMode(22, OUTPUT);
-//  MIDI.begin(MIDI_CHANNEL_OMNI);
-//  MIDI.setHandleNoteOn(midi_note_handle);
+  MIDI.begin(MIDI_CHANNEL_OMNI);
+  MIDI.setHandleNoteOn(midi_note_handle);
   GS.begin(rcvPin, sndPin, ovfPin);
   jp_synth_man.init(GS);
-//  for(int i=0; i<60; i++)
-//    jp_synth_man.kana_buffer_add(p[i]);
+  for(int i=0; i<60; i++)
+    jp_synth_man.kana_buffer_add(p[i]);
   gui_man.draw();
-  Serial.begin(115200);
+ // Serial.begin(115200);
 }
 
 void midi_note_handle(byte channel, byte pitch, byte velocity)
@@ -179,25 +179,29 @@ void heartbeat()
 void loop()
 {
   heartbeat();
-  ButtonValue menu_result;
+  ButtonValue key_result;
   KanaTable::Kana k;
   switch(gui_man.get_system_mode())
   {
     case MENU:
-      menu_result = key_man.scan_menu();
-      if(menu_result != _NULL)
-        gui_man.handle_menu_input(menu_result);
+      key_result = key_man.scan_menu();
       break;
     case VOCAL:
-//      MIDI.read();
+      MIDI.read();
       if(jp_synth_man.get_buffer_source() == 0)
       {
         k = key_man.scan_kana();
         jp_synth_man.kana_buffer_add(k);
-        gui_man.draw();
+        if(k != KanaTable::_NULL)
+          gui_man.draw();
       }
+      key_result = key_man.scan_funct_keys();
       break;
     case WAVEFORM:
+      MIDI.read();
+      key_result = key_man.scan_funct_keys();
       break;
   }
+  if(key_result != _NULL)
+    gui_man.handle_menu_input(key_result);
 }

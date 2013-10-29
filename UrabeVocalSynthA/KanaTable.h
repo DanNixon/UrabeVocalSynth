@@ -3,7 +3,7 @@
 
 namespace KanaTable
 {
-  static const int KANA_COUNT = 71; //128
+  static const int KANA_COUNT = 128; //Old val = 71
 
   enum Kana
   {

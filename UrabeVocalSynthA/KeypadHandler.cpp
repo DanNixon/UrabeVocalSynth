@@ -116,6 +116,12 @@ GUIMan::ButtonValue KeypadHandler::scan_menu()
   return (GUIMan::ButtonValue) this->get_button(10, 0, limit);
 }
 
+GUIMan::ButtonValue KeypadHandler::scan_funct_keys()
+{
+  int limit = ((int) F4) + 1;
+  return (GUIMan::ButtonValue) this->get_button(10, 0, limit);
+}
+
 KanaTable::Kana KeypadHandler::scan_kana()
 {
   PhysicalButton button = this->get_button(0, 4, PHYSICAL_BUTTON_COUNT);

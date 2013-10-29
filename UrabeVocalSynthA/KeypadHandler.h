@@ -39,6 +39,7 @@ namespace Keypad
     public:
       KeypadHandler(GUIManager *, JpSynthManager *);
       GUIMan::ButtonValue scan_menu();
+      GUIMan::ButtonValue scan_funct_keys();
       KanaTable::Kana scan_kana();
   };
 
