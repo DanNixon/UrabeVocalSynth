@@ -57,11 +57,11 @@ void KeypadHandler::set_up_pins()
   this->button_pins[F3] = 18; //GLCD Bottom Left
   this->button_pins[F4] = 19; //GLCD Bottom Right
 
-  this->button_pins[A] = 23;
-  this->button_pins[I] = 24;
-  this->button_pins[U] = 25;
-  this->button_pins[E] = 26;
-  this->button_pins[O] = 27;
+  this->button_pins[A] = 23;  //Select
+  this->button_pins[I] = 24;  //Left
+  this->button_pins[U] = 25;  //Up
+  this->button_pins[E] = 26;  //Right
+  this->button_pins[O] = 27;  //Down
 
   this->button_pins[K] = 32;
   this->button_pins[S] = 33;

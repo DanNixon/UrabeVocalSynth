@@ -136,8 +136,8 @@ void setup()
   MIDI.setHandleNoteOn(midi_note_handle);
   GS.begin(rcvPin, sndPin, ovfPin);
   jp_synth_man.init(GS);
-//  for(int i=0; i<60; i++)
-//    jp_synth_man.kana_buffer_add(p[i]);
+  for(int i=0; i<60; i++)
+    jp_synth_man.kana_buffer_add(p[i]);
   gui_man.draw();
 //  Serial.begin(115200);
 }

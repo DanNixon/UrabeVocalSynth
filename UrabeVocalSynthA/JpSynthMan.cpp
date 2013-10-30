@@ -65,16 +65,6 @@ void JpSynthManager::handle_midi_note(byte pitch, byte velocity)
       GSNote note = GS_MIDINotes[pitch];
       this->speak_kana(kana, note);
       int rm_position = this->buffer_position - 2;
-//      switch(rm_position)
-//      {
-//        case -2:
-//          rm_position = KANA_BUFFER_SIZE - 2;
-//          break;
-//        case -1:
-//          rm_position = KANA_BUFFER_SIZE - 1;
-//          break;
-//      } 
-//      this->kana_buffer[rm_position] = KanaTable::_NULL;
     }
   }
 }
