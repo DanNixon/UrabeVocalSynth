@@ -31,7 +31,7 @@ namespace JpSynthMan
       {_PE, _A}, {_PE, _I}, {_PE, _U}, {_PE, _E}, {_PO, _OE}
     }; //TODO: Expand for additional KanaTable::Kana
   
-  enum ConfigMenuItems
+  enum ConfigOptionsMenu
   {
     VOLUME_SOURCE = 0,
     VOLUME_PRESET,
@@ -75,4 +75,5 @@ namespace JpSynthMan
   };
 
 };
+
 #endif

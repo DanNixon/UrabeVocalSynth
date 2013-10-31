@@ -6,7 +6,7 @@
 
 namespace SynthMan
 {
-  enum MenuItems
+  enum ConfigOptionsMenu
   {
     VOLUME_SOURCE = 0,
     VOLUME_PRESET
