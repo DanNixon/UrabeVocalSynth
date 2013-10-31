@@ -135,6 +135,7 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
       {
         case _F1: //Back
           this->current_window = JP_MENU;
+          this->jps_man->update_config();
           break;
         case _UP:
           this->change_option(&this->jps_man->options[this->current_option], 1);
