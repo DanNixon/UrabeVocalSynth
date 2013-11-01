@@ -59,7 +59,7 @@ namespace JpSynthMan
   
     public:
       KanaTable::Kana kana_buffer[KANA_BUFFER_SIZE];
-      ConfigData::ConfigOption options[20];
+      ConfigData::ConfigOption options[7];
       JpSynthManager();
       void init(GinSing);
       void update_config();
