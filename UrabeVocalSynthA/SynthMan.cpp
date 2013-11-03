@@ -16,7 +16,6 @@ SynthManager::SynthManager()
   this->options[OVERFLOW]     = {"Overflow", ConfigData::ENUM, 0, {"Enable", "Disable"}, 2};
   this->options[P_DUTY_CYCLE] = {"Pulse Duty Cycle", ConfigData::INT, 0, {"-1000", "1000"}, 50};
 
-
   this->options[ATK_DUR_SRC] = {"Attack Dur. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
   this->options[ATK_DUR_VAL] = {"Attack Dur. Preset", ConfigData::ENUM, 0, {"2", "8", "16", "24", "38", "56", "68", "80", "100", "250", "500", "800", "1000", "2800", "5600", "11200"}, 16};
   this->options[ATK_AMP_SRC] = {"Attack Amp. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};

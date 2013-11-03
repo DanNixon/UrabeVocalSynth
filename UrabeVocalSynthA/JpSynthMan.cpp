@@ -8,14 +8,32 @@ JpSynthManager::JpSynthManager()
   this->buffer_add_position = 0;
   for(int i=0; i<KANA_BUFFER_SIZE; i++)
     this->kana_buffer[i] = KanaTable::_NULL;
-  this->option_count = 7;
+
+  this->option_count = 19;
   this->options[VOLUME_PRESET] = {"Volume Preset", ConfigData::INT, 500, {"0", "1000"}, -1};
   this->options[VOLUME_SOURCE] = {"Volume Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+
   this->options[KANA_SOURCE] = {"Kana Source", ConfigData::ENUM, 0, {"Keyboard", "File"}, 2};
+
   this->options[BLEND_SPEED_SOURCE] = {"Blend Speed Source", ConfigData::ENUM, 0, {"Preset", "MIDI",}, 2};
   this->options[BLEND_SPEED_PRESET] = {"Blend Speed Preset", ConfigData::INT, -1, {"-1", "1000"}, -1};
-  this->options[DELAY_SOURCE] = {"Delay Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
-  this->options[DELAY_PRESET] = {"Delay Preset", ConfigData::INT, -1, {"-1", "1000"}, -1};
+  this->options[DELAY_SOURCE]       = {"Delay Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[DELAY_PRESET]       = {"Delay Preset", ConfigData::INT, -1, {"-1", "1000"}, -1};
+
+  this->options[ATK_DUR_SRC] = {"Attack Dur. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[ATK_DUR_VAL] = {"Attack Dur. Preset", ConfigData::ENUM, 0, {"2", "8", "16", "24", "38", "56", "68", "80", "100", "250", "500", "800", "1000", "2800", "5600", "11200"}, 16};
+  this->options[ATK_AMP_SRC] = {"Attack Amp. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[ATK_AMP_VAL] = {"Attack Amp. Preset", ConfigData::INT, 1000, {"0", "1000"}, 25};
+
+  this->options[DEC_DUR_SRC] = {"Decay Dur. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[DEC_DUR_VAL] = {"Decay Dur. Preset", ConfigData::ENUM, 0, {"2", "6", "10", "15", "23", "34", "40", "48", "59", "145", "292", "455", "575", "1500", "2785", "4873"}, 16};
+  this->options[DEC_AMP_SRC] = {"Decay Amp. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[DEC_AMP_VAL] = {"Decay Amp. Preset", ConfigData::INT, 800, {"0", "1000"}, 25};
+
+  this->options[REL_DUR_SRC] = {"Release Dur. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[REL_DUR_VAL] = {"Release Dur. Preset", ConfigData::ENUM, 0, {"2", "6", "10", "15", "23", "34", "40", "48", "59", "145", "292", "455", "575", "1500", "2785", "4873"}, 16};
+  this->options[REL_AMP_SRC] = {"Release Amp. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[REL_AMP_VAL] = {"Release Amp. Preset", ConfigData::INT, 0, {"0", "1000"}, 25};
 }
 
 void JpSynthManager::init(GinSing gs)
