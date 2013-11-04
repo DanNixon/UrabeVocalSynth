@@ -23,7 +23,7 @@ $DIMEXE
   9
 $PSVPSCALE
  40
-1.0
+-0.1515151515151515
   9
 $DIMLUNIT
  70
@@ -69,9 +69,9 @@ $LUPREC
   9
 $PINSBASE
  10
-1.3468899521531057
+-4.0
  20
-35.437799043062199
+25.5
  30
 0.0
   9
@@ -95,9 +95,9 @@ $LUNITS
   9
 $PLIMMAX
  10
-300.0
+50.0
  20
-100.0
+30.0
   9
 $DIMSTYLE
   2
@@ -957,7 +957,7 @@ LAYER
 100
 AcDbSymbolTable
  70
-4
+1
   0
 LAYER
   5
@@ -968,66 +968,6 @@ AcDbSymbolTableRecord
 AcDbLayerTableRecord
   2
 0
- 70
-1
- 62
-9
-  6
-CONTINUOUS
-370
-0
-390
-F
-  0
-LAYER
-  5
-43
-100
-AcDbSymbolTableRecord
-100
-AcDbLayerTableRecord
-  2
-Guide_Panel
- 70
-0
- 62
-2
-  6
-CONTINUOUS
-370
-0
-390
-F
-  0
-LAYER
-  5
-44
-100
-AcDbSymbolTableRecord
-100
-AcDbLayerTableRecord
-  2
-Laser-Engrave
- 70
-0
- 62
-7
-  6
-CONTINUOUS
-370
-0
-390
-F
-  0
-LAYER
-  5
-45
-100
-AcDbSymbolTableRecord
-100
-AcDbLayerTableRecord
-  2
-Laser-Cut
  70
 0
  62
@@ -1363,15 +1303,87 @@ SECTION
   2
 ENTITIES
   0
-LINE
+CIRCLE
+  5
+43
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+ 40
+1.6000000000000001
+  0
+CIRCLE
+  5
+44
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+ 40
+4.0
+  0
+CIRCLE
+  5
+45
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+0.0
+ 20
+8.0
+ 30
+0.0
+ 40
+1.6000000000000001
+  0
+CIRCLE
   5
 46
 100
 AcDbEntity
 100
-AcDbLine
+AcDbCircle
   8
-Guide_Panel
+0
  62
 256
 370
@@ -1381,25 +1393,21 @@ ByLayer
  10
 0.0
  20
-0.0
+8.0
  30
 0.0
- 11
-0.0000000000000039
- 21
-63.0
- 31
-0.0
+ 40
+4.0
   0
-LINE
+CIRCLE
   5
 47
 100
 AcDbEntity
 100
-AcDbLine
+AcDbCircle
   8
-Guide_Panel
+0
  62
 256
 370
@@ -1407,27 +1415,23 @@ Guide_Panel
   6
 ByLayer
  10
-0.0000000000000039
+8.0
  20
-63.0
+0.0
  30
 0.0
- 11
-233.0
- 21
-63.0
- 31
-0.0
+ 40
+1.6000000000000001
   0
-LINE
+CIRCLE
   5
 48
 100
 AcDbEntity
 100
-AcDbLine
+AcDbCircle
   8
-Guide_Panel
+0
  62
 256
 370
@@ -1435,27 +1439,23 @@ Guide_Panel
   6
 ByLayer
  10
-0.0
+8.0
  20
 0.0
  30
 0.0
- 11
-233.0
- 21
-0.0
- 31
-0.0
+ 40
+4.0
   0
-LINE
+CIRCLE
   5
 49
 100
 AcDbEntity
 100
-AcDbLine
+AcDbCircle
   8
-Guide_Panel
+0
  62
 256
 370
@@ -1463,17 +1463,13 @@ Guide_Panel
   6
 ByLayer
  10
-233.0
+8.0
  20
-63.0
+8.0
  30
 0.0
- 11
-233.0
- 21
-0.0
- 31
-0.0
+ 40
+1.6000000000000001
   0
 CIRCLE
   5
@@ -1483,7 +1479,7 @@ AcDbEntity
 100
 AcDbCircle
   8
-Laser-Cut
+0
  62
 256
 370
@@ -1491,9 +1487,9 @@ Laser-Cut
   6
 ByLayer
  10
-20.0
+8.0
  20
-50.0
+8.0
  30
 0.0
  40
@@ -1507,7 +1503,7 @@ AcDbEntity
 100
 AcDbCircle
   8
-Laser-Cut
+0
  62
 256
 370
@@ -1515,13 +1511,13 @@ Laser-Cut
   6
 ByLayer
  10
-150.0
+16.0
  20
-50.0
+0.0
  30
 0.0
  40
-4.0
+1.6000000000000001
   0
 CIRCLE
   5
@@ -1531,7 +1527,7 @@ AcDbEntity
 100
 AcDbCircle
   8
-Laser-Cut
+0
  62
 256
 370
@@ -1539,23 +1535,23 @@ Laser-Cut
   6
 ByLayer
  10
-150.0
+16.0
  20
-30.0
+0.0
  30
 0.0
  40
 4.0
   0
-MTEXT
+CIRCLE
   5
 4D
 100
 AcDbEntity
 100
-AcDbMText
+AcDbCircle
   8
-Laser-Engrave
+0
  62
 256
 370
@@ -1563,39 +1559,23 @@ Laser-Engrave
   6
 ByLayer
  10
-10.0
+16.0
  20
-10.0
+8.0
  30
 0.0
  40
-10.0
- 41
-100.0
- 71
-7
- 72
-2
-  1
-UrabeVocalSynth
-  7
-kochigothic
- 50
-0.0
- 73
-1
- 44
-1.0
+1.6000000000000001
   0
-MTEXT
+CIRCLE
   5
 4E
 100
 AcDbEntity
 100
-AcDbMText
+AcDbCircle
   8
-Laser-Engrave
+0
  62
 256
 370
@@ -1603,39 +1583,23 @@ Laser-Engrave
   6
 ByLayer
  10
-30.0
+16.0
  20
-50.0
+8.0
  30
 0.0
  40
-5.0
- 41
-100.0
- 71
-4
- 72
-2
-  1
-Power
-  7
-kochigothic
- 50
-0.0
- 73
-1
- 44
-1.0
+4.0
   0
-MTEXT
+CIRCLE
   5
 4F
 100
 AcDbEntity
 100
-AcDbMText
+AcDbCircle
   8
-Laser-Engrave
+0
  62
 256
 370
@@ -1643,39 +1607,23 @@ Laser-Engrave
   6
 ByLayer
  10
-160.0
+24.0
  20
-50.0
+0.0
  30
 0.0
  40
-5.0
- 41
-100.0
- 71
-4
- 72
-2
-  1
-Synth
-  7
-kochigothic
- 50
-0.0
- 73
-1
- 44
-1.0
+1.6000000000000001
   0
-MTEXT
+CIRCLE
   5
 50
 100
 AcDbEntity
 100
-AcDbMText
+AcDbCircle
   8
-Laser-Engrave
+0
  62
 256
 370
@@ -1683,29 +1631,253 @@ Laser-Engrave
   6
 ByLayer
  10
-160.0
+24.0
  20
-30.0
+0.0
  30
 0.0
  40
-5.0
- 41
-100.0
- 71
-4
- 72
-2
-  1
-10Hz
-  7
-kochigothic
- 50
+4.0
+  0
+CIRCLE
+  5
+51
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+24.0
+ 20
+8.0
+ 30
 0.0
- 73
-1
- 44
-1.0
+ 40
+1.6000000000000001
+  0
+CIRCLE
+  5
+52
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+24.0
+ 20
+8.0
+ 30
+0.0
+ 40
+4.0
+  0
+CIRCLE
+  5
+53
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+32.0
+ 20
+0.0
+ 30
+0.0
+ 40
+1.6000000000000001
+  0
+CIRCLE
+  5
+54
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+32.0
+ 20
+0.0
+ 30
+0.0
+ 40
+4.0
+  0
+CIRCLE
+  5
+55
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+32.0
+ 20
+8.0
+ 30
+0.0
+ 40
+1.6000000000000001
+  0
+CIRCLE
+  5
+56
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+32.0
+ 20
+8.0
+ 30
+0.0
+ 40
+4.0
+  0
+CIRCLE
+  5
+57
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+40.0
+ 20
+0.0
+ 30
+0.0
+ 40
+1.6000000000000001
+  0
+CIRCLE
+  5
+58
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+40.0
+ 20
+0.0
+ 30
+0.0
+ 40
+4.0
+  0
+CIRCLE
+  5
+59
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+40.0
+ 20
+8.0
+ 30
+0.0
+ 40
+1.6000000000000001
+  0
+CIRCLE
+  5
+5A
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+0
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+40.0
+ 20
+8.0
+ 30
+0.0
+ 40
+4.0
   0
 ENDSEC
   0
@@ -1745,7 +1917,7 @@ E
   3
 AcDbVariableDictionary
 350
-51
+5B
   0
 DICTIONARY
   5
@@ -2209,7 +2381,7 @@ Layout2
   0
 DICTIONARY
   5
-51
+5B
 100
 AcDbDictionary
 281
@@ -2217,15 +2389,15 @@ AcDbDictionary
   3
 DIMASSOC
 350
-53
+5D
   3
 HIDETEXT
 350
-52
+5C
   0
 DICTIONARYVAR
   5
-52
+5C
 100
 DictionaryVariables
 280
@@ -2235,7 +2407,7 @@ DictionaryVariables
   0
 DICTIONARYVAR
   5
-53
+5D
 100
 DictionaryVariables
 280

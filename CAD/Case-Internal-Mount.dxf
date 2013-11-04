@@ -69,9 +69,9 @@ $LUPREC
   9
 $PINSBASE
  10
-1.3468899521531057
+100.0
  20
-35.437799043062199
+100.0
  30
 0.0
   9
@@ -95,9 +95,9 @@ $LUNITS
   9
 $PLIMMAX
  10
-300.0
+250.0
  20
-100.0
+200.0
   9
 $DIMSTYLE
   2
@@ -957,7 +957,7 @@ LAYER
 100
 AcDbSymbolTable
  70
-4
+2
   0
 LAYER
   5
@@ -969,9 +969,9 @@ AcDbLayerTableRecord
   2
 0
  70
-1
+0
  62
-9
+3
   6
 CONTINUOUS
 370
@@ -982,46 +982,6 @@ F
 LAYER
   5
 43
-100
-AcDbSymbolTableRecord
-100
-AcDbLayerTableRecord
-  2
-Guide_Panel
- 70
-0
- 62
-2
-  6
-CONTINUOUS
-370
-0
-390
-F
-  0
-LAYER
-  5
-44
-100
-AcDbSymbolTableRecord
-100
-AcDbLayerTableRecord
-  2
-Laser-Engrave
- 70
-0
- 62
-7
-  6
-CONTINUOUS
-370
-0
-390
-F
-  0
-LAYER
-  5
-45
 100
 AcDbSymbolTableRecord
 100
@@ -1243,6 +1203,42 @@ AcDbBlockTableRecord
 340
 26
   0
+BLOCK_RECORD
+  5
+44
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+MountHoleA
+340
+0
+  0
+BLOCK_RECORD
+  5
+45
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+MountHoleB
+340
+0
+  0
+BLOCK_RECORD
+  5
+46
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+ArduinoMount
+340
+0
+  0
 ENDTAB
   0
 ENDSEC
@@ -1357,77 +1353,39 @@ AcDbEntity
 100
 AcDbBlockEnd
   0
-ENDSEC
-  0
-SECTION
-  2
-ENTITIES
-  0
-LINE
-  5
-46
-100
-AcDbEntity
-100
-AcDbLine
-  8
-Guide_Panel
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-0.0
- 20
-0.0
- 30
-0.0
- 11
-0.0000000000000039
- 21
-63.0
- 31
-0.0
-  0
-LINE
+BLOCK
   5
 47
 100
 AcDbEntity
-100
-AcDbLine
   8
-Guide_Panel
- 62
-256
-370
--1
-  6
-ByLayer
+0
+100
+AcDbBlockBegin
+  2
+MountHoleA
+ 70
+0
  10
-0.0000000000000039
+0.0
  20
-63.0
+0.0
  30
 0.0
- 11
-233.0
- 21
-63.0
- 31
-0.0
+  3
+MountHoleA
+  1
+
   0
-LINE
+CIRCLE
   5
 48
 100
 AcDbEntity
 100
-AcDbLine
+AcDbCircle
   8
-Guide_Panel
+Laser-Cut
  62
 256
 370
@@ -1435,27 +1393,23 @@ Guide_Panel
   6
 ByLayer
  10
-0.0
+-79.999999999999986
  20
-0.0
+70.0
  30
 0.0
- 11
-233.0
- 21
-0.0
- 31
-0.0
+ 40
+2.0
   0
-LINE
+CIRCLE
   5
 49
 100
 AcDbEntity
 100
-AcDbLine
+AcDbCircle
   8
-Guide_Panel
+Laser-Cut
  62
 256
 370
@@ -1463,17 +1417,13 @@ Guide_Panel
   6
 ByLayer
  10
-233.0
+-80.0
  20
-63.0
+-70.0
  30
 0.0
- 11
-233.0
- 21
-0.0
- 31
-0.0
+ 40
+2.0
   0
 CIRCLE
   5
@@ -1491,13 +1441,13 @@ Laser-Cut
   6
 ByLayer
  10
-20.0
+80.0
  20
-50.0
+-70.0
  30
 0.0
  40
-4.0
+2.0
   0
 CIRCLE
   5
@@ -1515,17 +1465,51 @@ Laser-Cut
   6
 ByLayer
  10
-150.0
+80.0
  20
-50.0
+70.0
  30
 0.0
  40
-4.0
+2.0
+  0
+ENDBLK
+  5
+4C
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+4D
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+MountHoleB
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+MountHoleB
+  1
+
   0
 CIRCLE
   5
-4C
+4E
 100
 AcDbEntity
 100
@@ -1539,103 +1523,23 @@ Laser-Cut
   6
 ByLayer
  10
-150.0
+-100.0
  20
-30.0
+55.0
  30
 0.0
  40
-4.0
+2.0
   0
-MTEXT
-  5
-4D
-100
-AcDbEntity
-100
-AcDbMText
-  8
-Laser-Engrave
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-10.0
- 20
-10.0
- 30
-0.0
- 40
-10.0
- 41
-100.0
- 71
-7
- 72
-2
-  1
-UrabeVocalSynth
-  7
-kochigothic
- 50
-0.0
- 73
-1
- 44
-1.0
-  0
-MTEXT
-  5
-4E
-100
-AcDbEntity
-100
-AcDbMText
-  8
-Laser-Engrave
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-30.0
- 20
-50.0
- 30
-0.0
- 40
-5.0
- 41
-100.0
- 71
-4
- 72
-2
-  1
-Power
-  7
-kochigothic
- 50
-0.0
- 73
-1
- 44
-1.0
-  0
-MTEXT
+CIRCLE
   5
 4F
 100
 AcDbEntity
 100
-AcDbMText
+AcDbCircle
   8
-Laser-Engrave
+Laser-Cut
  62
 256
 370
@@ -1643,39 +1547,23 @@ Laser-Engrave
   6
 ByLayer
  10
-160.0
+-100.0
  20
-50.0
+-55.0
  30
 0.0
  40
-5.0
- 41
-100.0
- 71
-4
- 72
-2
-  1
-Synth
-  7
-kochigothic
- 50
-0.0
- 73
-1
- 44
-1.0
+2.0
   0
-MTEXT
+CIRCLE
   5
 50
 100
 AcDbEntity
 100
-AcDbMText
+AcDbCircle
   8
-Laser-Engrave
+Laser-Cut
  62
 256
 370
@@ -1683,29 +1571,511 @@ Laser-Engrave
   6
 ByLayer
  10
-160.0
+100.0
  20
-30.0
+-55.0
  30
 0.0
  40
-5.0
- 41
+2.0
+  0
+CIRCLE
+  5
+51
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
 100.0
- 71
-4
- 72
-2
-  1
-10Hz
-  7
-kochigothic
- 50
+ 20
+55.0
+ 30
 0.0
- 73
-1
- 44
-1.0
+ 40
+2.0
+  0
+ENDBLK
+  5
+52
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+53
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+ArduinoMount
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+ArduinoMount
+  1
+
+  0
+CIRCLE
+  5
+54
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+34.799999999999997
+ 20
+-60.799999999999997
+ 30
+0.0
+ 40
+2.0
+  0
+CIRCLE
+  5
+55
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+50.0
+ 20
+-10.0
+ 30
+0.0
+ 40
+2.0
+  0
+CIRCLE
+  5
+56
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+6.8999999999999986
+ 20
+-60.79999999999999
+ 30
+0.0
+ 40
+2.0
+  0
+CIRCLE
+  5
+57
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+1.8000000000000025
+ 20
+-8.6999999999999922
+ 30
+0.0
+ 40
+2.0
+  0
+ENDBLK
+  5
+58
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+  0
+INSERT
+  5
+59
+100
+AcDbEntity
+100
+AcDbBlockReference
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+  2
+MountHoleA
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+INSERT
+  5
+5A
+100
+AcDbEntity
+100
+AcDbBlockReference
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+  2
+MountHoleB
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+LINE
+  5
+5B
+100
+AcDbEntity
+100
+AcDbLine
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+-105.0
+ 20
+75.0
+ 30
+0.0
+ 11
+105.0
+ 21
+75.0
+ 31
+0.0
+  0
+LINE
+  5
+5C
+100
+AcDbEntity
+100
+AcDbLine
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+105.0
+ 20
+75.0
+ 30
+0.0
+ 11
+105.0
+ 21
+-75.0
+ 31
+0.0
+  0
+LINE
+  5
+5D
+100
+AcDbEntity
+100
+AcDbLine
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+105.0
+ 20
+-75.0
+ 30
+0.0
+ 11
+-105.0
+ 21
+-75.0
+ 31
+0.0
+  0
+LINE
+  5
+5E
+100
+AcDbEntity
+100
+AcDbLine
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+-105.0
+ 20
+-75.0
+ 30
+0.0
+ 11
+-105.0
+ 21
+75.0
+ 31
+0.0
+  0
+INSERT
+  5
+5F
+100
+AcDbEntity
+100
+AcDbBlockReference
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+  2
+ArduinoMount
+ 10
+10.0
+ 20
+40.0
+ 30
+0.0
+  0
+CIRCLE
+  5
+60
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+-80.0
+ 20
+50.0
+ 30
+0.0
+ 40
+2.0
+  0
+CIRCLE
+  5
+61
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+-80.0
+ 20
+0.0
+ 30
+0.0
+ 40
+2.0
+  0
+CIRCLE
+  5
+62
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+-80.0
+ 20
+-50.0
+ 30
+0.0
+ 40
+2.0
+  0
+CIRCLE
+  5
+63
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+-30.0
+ 20
+-50.0
+ 30
+0.0
+ 40
+2.0
+  0
+CIRCLE
+  5
+64
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+-30.0
+ 20
+0.0
+ 30
+0.0
+ 40
+2.0
+  0
+CIRCLE
+  5
+65
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Laser-Cut
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+-30.0
+ 20
+50.0
+ 30
+0.0
+ 40
+2.0
   0
 ENDSEC
   0
@@ -1745,7 +2115,7 @@ E
   3
 AcDbVariableDictionary
 350
-51
+66
   0
 DICTIONARY
   5
@@ -2209,7 +2579,7 @@ Layout2
   0
 DICTIONARY
   5
-51
+66
 100
 AcDbDictionary
 281
@@ -2217,15 +2587,15 @@ AcDbDictionary
   3
 DIMASSOC
 350
-53
+68
   3
 HIDETEXT
 350
-52
+67
   0
 DICTIONARYVAR
   5
-52
+67
 100
 DictionaryVariables
 280
@@ -2235,7 +2605,7 @@ DictionaryVariables
   0
 DICTIONARYVAR
   5
-53
+68
 100
 DictionaryVariables
 280
