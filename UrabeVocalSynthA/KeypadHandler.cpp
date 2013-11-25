@@ -73,10 +73,9 @@ void KeypadHandler::set_up_pins()
   this->button_pins[R] = 39;
   this->button_pins[W] = 40;
 
-  this->button_pins[NN] = 28;
-  this->button_pins[YA] = 29;
-  this->button_pins[YU] = 30;
-  this->button_pins[YO] = 31;
+  this->button_pins[YA] = 28;
+  this->button_pins[YU] = 39;
+  this->button_pins[YO] = 30;
 
   this->button_pins[DAK] = 14;
   this->button_pins[HANDAK] = 15;
@@ -126,7 +125,6 @@ KanaTable::Kana KeypadHandler::scan_kana()
 {
   PhysicalButton button = this->get_button(0, 4, PHYSICAL_BUTTON_COUNT);
   if(button == _NONE) return KanaTable::_NULL;
-  if(button == NN) return KanaTable::_N;
   int button_val = (int) button;
   if((button_val >= (int) A) && (button_val <= (int) O))
   {
