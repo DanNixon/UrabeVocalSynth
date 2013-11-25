@@ -9,7 +9,7 @@ using namespace GUIMan;
 
 namespace Keypad
 {
-  enum PhysicalButtons
+  enum PhysicalButton
   {
     F1 = 0,
     F2,
@@ -17,11 +17,13 @@ namespace Keypad
     F4,
     A, I, U, E, O,
     K, S, T, N, H, M, Y, R, W,
-    NN,
-    YA, YU, YO
+    YA, YU, YO,
+    DAK, HANDAK,
+
+    _NONE = 255
   };
   
-  static const int PHYSICAL_BUTTON_COUNT = 22;
+  static const int PHYSICAL_BUTTON_COUNT = 23;
 
   class KeypadHandler
   {
@@ -35,7 +37,9 @@ namespace Keypad
     public:
       KeypadHandler(GUIManager *, JpSynthManager *);
       GUIMan::ButtonValue scan_menu();
+      GUIMan::ButtonValue scan_funct_keys();
       KanaTable::Kana scan_kana();
+      PhysicalButton get_button(int, int, int); //DEV
   };
 
 };

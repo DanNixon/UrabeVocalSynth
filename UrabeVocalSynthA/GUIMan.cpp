@@ -135,6 +135,7 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
       {
         case _F1: //Back
           this->current_window = JP_MENU;
+          this->jps_man->update_config();
           break;
         case _UP:
           this->change_option(&this->jps_man->options[this->current_option], 1);
@@ -145,11 +146,11 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
         case _LEFT:
           this->current_option--;
           if(this->current_option < 0)
-            this->current_option = this->jps_man->option_count - 1;
+            this->current_option = this->jps_man->get_option_count() - 1;
           break;
         case _RIGHT:
           this->current_option++;
-          if(this->current_option >= this->jps_man->option_count)
+          if(this->current_option >= this->jps_man->get_option_count())
             this->current_option = 0;
           break;
       }
@@ -177,7 +178,6 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           break;
         case _F4: //Clear Buffer
           this->jps_man->kana_buffer_clear();
-          //TODO: FIx GLCD issue
           break;
       }
       break;

@@ -5,6 +5,10 @@
 #include "KanaTable.h"
 #include "ConfigDataDef.h"
 #include "JpSynthMan.h"
+#include "SynthMan.h"
+
+using namespace JpSynthMan;
+using namespace SynthMan;
 
 namespace GUIMan
 {

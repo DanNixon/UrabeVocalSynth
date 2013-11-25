@@ -6,8 +6,8 @@ const int GLCDManager::HEADER_HEIGHT = 14;
 const int GLCDManager::FOOTER_HEIGHT = 15;
 const int GLCDManager::UPPER_BUTTON_WIDTH = 32;
 
-//D0, D1, D2, D3, D4, D5, D6, D7, EN, DI RS, RW R/W
-U8GLIB_ST7920_128X64_1X GLCDManager::u8g(40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50);
+//D0, D1, D2, D3, D4, D5, D6, D7, EN, RS, R/W
+U8GLIB_ST7920_128X64_1X GLCDManager::u8g(42, 43, 44, 45, 47, 46, 48, 49, 50, 51, 52);
 
 GLCDManager::GLCDManager()
 {
@@ -44,20 +44,21 @@ void GLCDManager::draw_buttons_lower(char *left, char *right)
   this->u8g.drawStr(this->GLCD_WIDTH - centre + 1, this->GLCD_HEIGHT - 2, right);
 }
 
-void GLCDManager::draw_kana_buffer(KanaTable::Kana displayKana[], int synth_on)
+void GLCDManager::draw_kana_buffer(KanaTable::Kana display_kana[], int synth_on)
 {
   int px_h = 45;
   this->u8g.setFont(hira1);
   this->u8g.setScale2x2();
   if(synth_on)
     this->u8g.drawHLine(0, (px_h / 2) + 1, 15);
-  this->u8g.drawStr(0, (px_h / 2), hiragana[displayKana[0]]);
+  if(display_kana[0] != KanaTable::_NULL)
+    this->u8g.drawStr(0, (px_h / 2), hiragana[display_kana[0]]);
   this->u8g.undoScale();
   for(int i=1; i<7; i++)
   {
     int px_x = 32 + (16 * (i - 1));
-    if(displayKana[i] != KanaTable::_NULL)
-      this->u8g.drawStr(px_x, px_h, hiragana[displayKana[i]]);
+    if(display_kana[i] != KanaTable::_NULL)
+      this->u8g.drawStr(px_x, px_h, hiragana[display_kana[i]]);
   }
 }
 

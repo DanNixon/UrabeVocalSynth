@@ -1,34 +1,73 @@
 #include "JpSynthMan.h"
 
+using namespace JpSynthMan;
+
 JpSynthManager::JpSynthManager()
 {
   this->buffer_position = 0;
-  this->option_count = 5;
-  this->options[1] = {"Blend Speed Value", ConfigData::INT, -1, {"-1", "1000"}, -1};
-  this->options[0] = {"Blend Speed Source", ConfigData::ENUM, 0, {"Preset", "MIDI",}, 2};
-  this->options[3] = {"Delay Value", ConfigData::INT, -1, {"-1", "1000"}, -1};
-  this->options[2] = {"Delay Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
-  this->options[4] = {"Kana Source", ConfigData::ENUM, 0, {"Keyboard", "File"}, 2};
+  this->buffer_add_position = 0;
+  for(int i=0; i<KANA_BUFFER_SIZE; i++)
+    this->kana_buffer[i] = KanaTable::_NULL;
+
+  this->option_count = 19;
+  this->options[VOLUME_PRESET] = {"Volume Preset", ConfigData::INT, 500, {"0", "1000"}, -1};
+  this->options[VOLUME_SOURCE] = {"Volume Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+
+  this->options[KANA_SOURCE] = {"Kana Source", ConfigData::ENUM, 0, {"Keyboard", "File"}, 2};
+
+  this->options[BLEND_SPEED_SOURCE] = {"Blend Speed Source", ConfigData::ENUM, 0, {"Preset", "MIDI",}, 2};
+  this->options[BLEND_SPEED_PRESET] = {"Blend Speed Preset", ConfigData::INT, -1, {"-1", "1000"}, -1};
+  this->options[DELAY_SOURCE]       = {"Delay Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[DELAY_PRESET]       = {"Delay Preset", ConfigData::INT, -1, {"-1", "1000"}, -1};
+
+  this->options[ATK_DUR_SRC] = {"Attack Dur. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[ATK_DUR_VAL] = {"Attack Dur. Preset", ConfigData::ENUM, 0, {"2", "8", "16", "24", "38", "56", "68", "80", "100", "250", "500", "800", "1000", "2800", "5600", "11200"}, 16};
+  this->options[ATK_AMP_SRC] = {"Attack Amp. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[ATK_AMP_VAL] = {"Attack Amp. Preset", ConfigData::INT, 1000, {"0", "1000"}, 25};
+
+  this->options[DEC_DUR_SRC] = {"Decay Dur. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[DEC_DUR_VAL] = {"Decay Dur. Preset", ConfigData::ENUM, 0, {"2", "6", "10", "15", "23", "34", "40", "48", "59", "145", "292", "455", "575", "1500", "2785", "4873"}, 16};
+  this->options[DEC_AMP_SRC] = {"Decay Amp. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[DEC_AMP_VAL] = {"Decay Amp. Preset", ConfigData::INT, 800, {"0", "1000"}, 25};
+
+  this->options[REL_DUR_SRC] = {"Release Dur. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[REL_DUR_VAL] = {"Release Dur. Preset", ConfigData::ENUM, 0, {"2", "6", "10", "15", "23", "34", "40", "48", "59", "145", "292", "455", "575", "1500", "2785", "4873"}, 16};
+  this->options[REL_AMP_SRC] = {"Release Amp. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[REL_AMP_VAL] = {"Release Amp. Preset", ConfigData::INT, 0, {"0", "1000"}, 25};
 }
 
 void JpSynthManager::init(GinSing gs)
 {
   this->voice = gs.getVoice();
+  this->master = gs.getMaster();
   this->voice->begin();
+  this->update_config();
 }
+
+void JpSynthManager::update_config()
+{
+  if(this->options[BLEND_SPEED_SOURCE].value == 0)
+    this->blend_speed = this->options[BLEND_SPEED_PRESET].value;
+  if(this->options[DELAY_SOURCE].value == 0)
+    this->phoneame_delay = this->options[DELAY_PRESET].value;
+  if(this->options[VOLUME_SOURCE].value == 0)
+    this->master_volume = this->options[VOLUME_PRESET].value;
+  float f_master_volume = (float) this->master_volume / 100.0f; //TODO: volume setting bug
+  this->master->setAmplitude(MIX_ALL, f_master_volume);
+}
+
+//TODO: MIDI control handler
 
 void JpSynthManager::speak_kana(KanaTable::Kana kana, GSNote note)
 {
-  int blend_speed = this->options[1].value;
-  int delay = this->options[3].value;
-  if(blend_speed != -1)
+  if(this->blend_speed != -1)
   {
-    float f_blend_speed = (float) blend_speed / 100.0f;
+    float f_blend_speed = (float) this->blend_speed / 100.0f;
     this->voice->setBlendSpeed(f_blend_speed);
   }
-  if(delay != -1)
+  if(this->phoneame_delay != -1)
   {
-    float f_delay = (float) delay / 100.0f;
+    float f_delay = (float) this->phoneame_delay / 100.0f;
     this->voice->setDelay(f_delay);
   }
   this->voice->setNote(note);
@@ -39,6 +78,8 @@ void JpSynthManager::end_speak()
 {
   GSAllophone phrase[] = {_PA1, _ENDPHRASE};
   voice->speak(phrase);
+  this->notes_on = 0;
+  this->kana_buffer[this->buffer_position - 1] = KanaTable::_NULL;
 }
 
 void JpSynthManager::handle_midi_note(byte pitch, byte velocity)
@@ -54,11 +95,13 @@ void JpSynthManager::handle_midi_note(byte pitch, byte velocity)
   {
     this->notes_on++;
     KanaTable::Kana kana = this->kana_buffer[this->buffer_position];
-    this->buffer_position++;
-    if(this->kana_buffer[this->buffer_position] == KanaTable::_NULL)
-      this->buffer_position = 0;
-    GSNote note = GS_MIDINotes[pitch];
-    this->speak_kana(kana, note);
+    if(kana != KanaTable::_NULL)
+    {
+      this->buffer_position++;
+      GSNote note = GS_MIDINotes[pitch];
+      this->speak_kana(kana, note);
+      int rm_position = this->buffer_position - 2;
+    }
   }
 }
 
@@ -72,27 +115,26 @@ void JpSynthManager::kana_buffer_clear()
 
 void JpSynthManager::kana_buffer_add(KanaTable::Kana kana)
 {
-  //TODO
+  if(kana != KanaTable::_NULL)
+  {
+    if(this->buffer_add_position >= KANA_BUFFER_SIZE)
+      this->buffer_add_position = 0;
+    if(this->kana_buffer[this->buffer_add_position] == KanaTable::_NULL)
+    {
+      this->kana_buffer[buffer_add_position] = kana;
+      this->buffer_add_position++;
+    }
+  }
 }
 
 void JpSynthManager::kana_buffer_rm_last()
 {
-  //TODO
+  if(this->buffer_add_position == 0)
+    this->buffer_add_position = KANA_BUFFER_SIZE - 1;
+  this->kana_buffer[this->buffer_add_position] = KanaTable::_NULL;
 }
 
+int JpSynthManager::get_buffer_source() { return this->options[4].value; }
 int JpSynthManager::get_notes_on() { return this->notes_on; }
 int JpSynthManager::get_buffer_position() { return this->buffer_position; }
-
-void JpSynthManager::set_phoneame_delay(int pd)
-{
-  if(pd > 1000) pd = 1000;
-  if((pd < 0) && (pd != -1)) pd = 0;
-  this->phoneame_delay = pd;
-}
-
-void JpSynthManager::set_blend_speed(int bs)
-{
-  if(bs > 1000) bs = 1000;
-  if((bs < 0) && (bs != -1)) bs = 0;
-  this->blend_speed = bs;
-}
+int JpSynthManager::get_option_count() { return this->option_count; }
