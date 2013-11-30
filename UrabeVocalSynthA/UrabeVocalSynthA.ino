@@ -132,14 +132,14 @@ KanaTable::Kana p[] =
 void setup()
 {
   pinMode(22, OUTPUT);
-//  MIDI.begin(MIDI_CHANNEL_OMNI);
-//  MIDI.setHandleNoteOn(midi_note_handle);
+  MIDI.begin(MIDI_CHANNEL_OMNI);
+  MIDI.setHandleNoteOn(midi_note_handle);
   GS.begin(rcvPin, sndPin, ovfPin);
   jp_synth_man.init(GS);
-  for(int i=0; i<60; i++)
+  for(int i=0; i<100; i++)
     jp_synth_man.kana_buffer_add(p[i]);
   gui_man.draw();
-  Serial.begin(115200);
+//  Serial.begin(115200);
 }
 
 void midi_note_handle(byte channel, byte pitch, byte velocity)
@@ -178,11 +178,11 @@ void heartbeat()
 
 void loop()
 {
-  Keypad::PhysicalButton b = key_man.get_button(50, 0, Keypad::PHYSICAL_BUTTON_COUNT);
-  if(b != Keypad::_NONE)
-    Serial.println(b);
+//  Keypad::PhysicalButton b = key_man.get_button(50, 0, Keypad::PHYSICAL_BUTTON_COUNT);
+//  if(b != Keypad::_NONE)
+//    Serial.println(b);
 
-  return;
+//  return;
 
   heartbeat();
   ButtonValue key_result;
