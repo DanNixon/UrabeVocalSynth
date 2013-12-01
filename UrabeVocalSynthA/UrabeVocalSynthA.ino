@@ -8,14 +8,11 @@
 #include "JpSynthMan.h"
 #include "KeypadHandler.h"
 
-#define rcvPin 4
-#define sndPin 3
-#define ovfPin 2
+extern const char *VERSION_STRING = "v0.3";
 
 using namespace GUIMan;
 
 GinSing GS;
-
 GLCDManager glcd_man;
 JpSynthManager jp_synth_man;
 GUIManager gui_man(&glcd_man, &jp_synth_man);
@@ -131,10 +128,10 @@ KanaTable::Kana p[] =
 
 void setup()
 {
-  pinMode(22, OUTPUT);
+  pinMode(2, OUTPUT);
   MIDI.begin(MIDI_CHANNEL_OMNI);
   MIDI.setHandleNoteOn(midi_note_handle);
-  GS.begin(rcvPin, sndPin, ovfPin);
+  GS.begin(12, 11, 10);
   jp_synth_man.init(GS);
   for(int i=0; i<100; i++)
     jp_synth_man.kana_buffer_add(p[i]);
@@ -171,19 +168,13 @@ void heartbeat()
     hb_state = !hb_state;
     int led_state = 0;
     if(hb_state) led_state = 1;
-    digitalWrite(22, led_state);
+    digitalWrite(2, led_state);
     last_hb = current_time;
   }
 }
 
 void loop()
 {
-//  Keypad::PhysicalButton b = key_man.get_button(50, 0, Keypad::PHYSICAL_BUTTON_COUNT);
-//  if(b != Keypad::_NONE)
-//    Serial.println(b);
-
-//  return;
-
   heartbeat();
   ButtonValue key_result;
   KanaTable::Kana k;

@@ -1,5 +1,6 @@
 #include "GUIMan.h"
 
+extern char *VERSION_STRING;
 using namespace GUIMan;
 
 GUIManager::GUIManager(GLCDManager *glcd_manager, JpSynthManager *jp_synth_manager)
@@ -27,8 +28,11 @@ void GUIManager::do_draw()
   switch(this->current_window)
   {
     case MAIN:
-      this->glcd_man->draw_title_large("Main Title");
+      this->glcd_man->draw_title_large("UrabeVocalSynth");
       this->glcd_man->draw_buttons_lower("Synth", "Vocal");
+      this->glcd_man->u8g.setFont(u8g_font_helvR08);
+      this->glcd_man->u8g.drawStr(0, 24, VERSION_STRING);
+      this->glcd_man->u8g.drawStr(0, 34, "dan-nixon.com");
       break;
     case SYNTH_MENU:
       this->glcd_man->draw_title("Synth");
