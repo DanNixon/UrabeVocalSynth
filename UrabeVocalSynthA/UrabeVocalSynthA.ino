@@ -133,8 +133,8 @@ void setup()
   MIDI.setHandleNoteOn(midi_note_handle);
   GS.begin(12, 11, 10);
   jp_synth_man.init(GS);
-  for(int i=0; i<100; i++)
-    jp_synth_man.kana_buffer_add(p[i]);
+//  for(int i=0; i<100; i++)
+//    jp_synth_man.kana_buffer_add(p[i]);
   gui_man.draw();
 //  Serial.begin(115200);
 }
@@ -190,7 +190,10 @@ void loop()
         k = key_man.scan_kana();
         jp_synth_man.kana_buffer_add(k);
         if(k != KanaTable::_NULL)
+        {
+          Serial.println(k);
           gui_man.draw();
+        }
       }
       key_result = key_man.scan_funct_keys();
       break;

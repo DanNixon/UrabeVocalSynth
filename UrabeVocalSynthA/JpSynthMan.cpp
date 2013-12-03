@@ -109,7 +109,9 @@ void JpSynthManager::kana_buffer_clear()
 {
   this->end_speak();
   this->notes_on = 0;
-  for(int i=0; i<100; i++)
+  this->buffer_position = 0;
+  this->buffer_add_position = 0;
+  for(int i=0; i<KANA_BUFFER_SIZE; i++)
     this->kana_buffer[i] = KanaTable::_NULL;
 }
 
@@ -134,7 +136,7 @@ void JpSynthManager::kana_buffer_rm_last()
   this->kana_buffer[this->buffer_add_position] = KanaTable::_NULL;
 }
 
-int JpSynthManager::get_buffer_source() { return this->options[4].value; }
+int JpSynthManager::get_buffer_source() { return this->options[KANA_SOURCE].value; }
 int JpSynthManager::get_notes_on() { return this->notes_on; }
 int JpSynthManager::get_buffer_position() { return this->buffer_position; }
 int JpSynthManager::get_option_count() { return this->option_count; }

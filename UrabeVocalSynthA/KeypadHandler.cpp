@@ -7,7 +7,7 @@ using namespace Keypad;
 KanaTable::Kana kana_button_mapping[][9][9] =
 {
   { //none
-    {KanaTable::_K, KanaTable::_S, KanaTable::_T, KanaTable::_Ns, KanaTable::_H, KanaTable::_M, KanaTable::_Y, KanaTable::_R, KanaTable::_W},                     //small tsu
+    {KanaTable::_K, KanaTable::_S, KanaTable::_T, KanaTable::_N, KanaTable::_H, KanaTable::_M, KanaTable::_Y, KanaTable::_R, KanaTable::_W},                     //small tsu
     {KanaTable::_KA, KanaTable::_SA, KanaTable::_TA, KanaTable::_NA, KanaTable::_HA, KanaTable::_MA, KanaTable::_YA, KanaTable::_RA, KanaTable::_WA},             //a
     {KanaTable::_KI, KanaTable::_SHI, KanaTable::_CHI, KanaTable::_NI, KanaTable::_HI, KanaTable::_MI, KanaTable::_NULL, KanaTable::_RI, KanaTable::_NULL},       //i
     {KanaTable::_KU, KanaTable::_SU, KanaTable::_TSU, KanaTable::_NU, KanaTable::_HU, KanaTable::_MU, KanaTable::_YU, KanaTable::_RU, KanaTable::_NULL},          //u
@@ -74,7 +74,7 @@ void KeypadHandler::set_up_pins()
   this->button_pins[W] = 40;
 
   this->button_pins[YA] = 28;
-  this->button_pins[YU] = 39;
+  this->button_pins[YU] = 29;
   this->button_pins[YO] = 30;
 
   this->button_pins[DAK] = 14;
