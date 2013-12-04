@@ -67,13 +67,13 @@ void GUIManager::do_draw()
       this->glcd_man->draw_title("Vocal");
       this->glcd_man->draw_buttons_upper("Back", "");
       this->glcd_man->draw_buttons_lower("Panic", "Clr Buf");
-      this->glcd_man->u8g.setFont(u8g_font_helvR08);
-      char buf1[10];
-      char buf2[10];
-      sprintf(buf1, "bR:%d", this->jps_man->get_buffer_position());
-      sprintf(buf2, "bW:%d", this->jps_man->get_buffer_add_position());
-      this->glcd_man->u8g.drawStr(32, 24, buf1);
-      this->glcd_man->u8g.drawStr(80, 24, buf2);
+      this->glcd_man->u8g.setFont(u8g_font_5x7);
+      char read_counter_buf[10];
+      char write_counter_buf[10];
+      sprintf(read_counter_buf, "R:%d", this->jps_man->get_buffer_position());
+      sprintf(write_counter_buf, "W:%d", this->jps_man->get_buffer_add_position());
+      this->glcd_man->u8g.drawStr(88, 22, read_counter_buf);
+      this->glcd_man->u8g.drawStr(88, 30, write_counter_buf);
       KanaTable::Kana disp_kana[9];
       int offset = 0;
       if(this->jps_man->get_notes_on())

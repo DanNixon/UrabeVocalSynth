@@ -1,7 +1,7 @@
 #ifndef JPSYNTHMAN_H
 #define JPSYNTHMAN_H
 
-#define KANA_BUFFER_SIZE 20
+#define KANA_BUFFER_SIZE 1024
 
 #include <GinSing.h>
 #include "KanaTable.h"

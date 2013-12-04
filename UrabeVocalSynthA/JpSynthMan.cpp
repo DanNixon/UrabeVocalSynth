@@ -53,6 +53,7 @@ void JpSynthManager::update_config()
 
 void JpSynthManager::speak_kana(KanaTable::Kana kana, GSNote note)
 {
+  this->update_config();
   if(this->blend_speed != -1)
   {
     float f_blend_speed = (float) this->blend_speed / 100.0f;
