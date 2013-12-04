@@ -41,21 +41,6 @@ namespace JpSynthMan
     BLEND_SPEED_PRESET,
     DELAY_SOURCE,
     DELAY_PRESET,
-
-    ATK_DUR_SRC,
-    ATK_DUR_VAL,
-    ATK_AMP_SRC,
-    ATK_AMP_VAL,
-
-    DEC_DUR_SRC,
-    DEC_DUR_VAL,
-    DEC_AMP_SRC,
-    DEC_AMP_VAL,
-
-    REL_DUR_SRC,
-    REL_DUR_VAL,
-    REL_AMP_SRC,
-    REL_AMP_VAL
   };
 
   class JpSynthManager
