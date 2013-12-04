@@ -67,6 +67,13 @@ void GUIManager::do_draw()
       this->glcd_man->draw_title("Vocal");
       this->glcd_man->draw_buttons_upper("Back", "");
       this->glcd_man->draw_buttons_lower("Panic", "Clr Buf");
+      this->glcd_man->u8g.setFont(u8g_font_helvR08);
+      char buf1[10];
+      char buf2[10];
+      sprintf(buf1, "bR:%d", this->jps_man->get_buffer_position());
+      sprintf(buf2, "bW:%d", this->jps_man->get_buffer_add_position());
+      this->glcd_man->u8g.drawStr(32, 24, buf1);
+      this->glcd_man->u8g.drawStr(80, 24, buf2);
       KanaTable::Kana disp_kana[9];
       int offset = 0;
       if(this->jps_man->get_notes_on())
@@ -74,6 +81,8 @@ void GUIManager::do_draw()
       for(int i=0; i<9; i++)
       {
         int position = i + this->jps_man->get_buffer_position() + offset;
+        if(position >= KANA_BUFFER_SIZE)
+          position = position % KANA_BUFFER_SIZE;
         disp_kana[i] = this->jps_man->kana_buffer[position];
       }
       this->glcd_man->draw_kana_buffer(disp_kana, this->jps_man->get_notes_on());
@@ -177,7 +186,7 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           this->current_window = JP_MENU;
           break;
         case _F3: //Panic
-          this->jps_man->end_speak();
+          this->jps_man->panic();
           //TODO: Fix GLCD issue
           break;
         case _F4: //Clear Buffer

@@ -14,7 +14,7 @@ JpSynthManager::JpSynthManager()
   this->options[VOLUME_PRESET] = {"Volume Preset", ConfigData::INT, 500, {"0", "1000"}, -1};
   this->options[VOLUME_SOURCE] = {"Volume Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
 
-  this->options[KANA_SOURCE] = {"Kana Source", ConfigData::ENUM, 0, {"Keyboard", "File"}, 2};
+  this->options[KANA_SOURCE]   = {"Kana Source", ConfigData::ENUM, 0, {"Keyboard", "File"}, 2};
 
   this->options[BLEND_SPEED_SOURCE] = {"Blend Speed Source", ConfigData::ENUM, 0, {"Preset", "MIDI",}, 2};
   this->options[BLEND_SPEED_PRESET] = {"Blend Speed Preset", ConfigData::INT, -1, {"-1", "1000"}, -1};
@@ -28,6 +28,13 @@ void JpSynthManager::init(GinSing gs)
   this->master = gs.getMaster();
   this->voice->begin();
   this->update_config();
+}
+
+void JpSynthManager::panic()
+{
+  this->end_speak();
+  this->update_config();
+  this->voice->begin();
 }
 
 void JpSynthManager::update_config()
@@ -57,7 +64,8 @@ void JpSynthManager::speak_kana(KanaTable::Kana kana, GSNote note)
     this->voice->setDelay(f_delay);
   }
   this->voice->setNote(note);
-  this->voice->speak(kana_map[kana]);
+  if((kana >= 0) && (kana < KanaTable::KANA_COUNT))
+    this->voice->speak(kana_map[kana]);
 }
 
 void JpSynthManager::end_speak()
@@ -90,12 +98,12 @@ void JpSynthManager::handle_midi_note(byte pitch, byte velocity)
       int rm_position;
       switch(this->buffer_position)
       {
-        case KANA_BUFFER_SIZE:
-          rm_position = KANA_BUFFER_SIZE - 2;
+        case KANA_BUFFER_SIZE - 1:
+          rm_position = KANA_BUFFER_SIZE - 3;
           this->buffer_position = 0;
           break;
         case 0:
-          rm_position = KANA_BUFFER_SIZE - 1;
+          rm_position = KANA_BUFFER_SIZE - 2;
           break;
         default:
           rm_position = this->buffer_position - 2;
@@ -140,4 +148,5 @@ void JpSynthManager::kana_buffer_rm_last()
 int JpSynthManager::get_buffer_source() { return this->options[KANA_SOURCE].value; }
 int JpSynthManager::get_notes_on() { return this->notes_on; }
 int JpSynthManager::get_buffer_position() { return this->buffer_position; }
+int JpSynthManager::get_buffer_add_position() { return this->buffer_add_position; }
 int JpSynthManager::get_option_count() { return this->option_count; }

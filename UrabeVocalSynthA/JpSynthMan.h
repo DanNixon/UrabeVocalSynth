@@ -1,7 +1,7 @@
 #ifndef JPSYNTHMAN_H
 #define JPSYNTHMAN_H
 
-#define KANA_BUFFER_SIZE 128
+#define KANA_BUFFER_SIZE 20
 
 #include <GinSing.h>
 #include "KanaTable.h"
@@ -28,7 +28,19 @@ namespace JpSynthMan
       {_Z, _A}, {_Z, _I}, {_Z, _U}, {_Z, _E}, {_Z, _OE},
       {_DE, _A}, {_Z, _I}, {_Z, _U}, {_DE, _E}, {_DO, _OE},
       {_BE, _A}, {_BE, _I}, {_BE, _U}, {_BE, _E}, {_BO, _OE},
-      {_PE, _A}, {_PE, _I}, {_PE, _U}, {_PE, _E}, {_PO, _OE}
+      {_PE, _A}, {_PE, _I}, {_PE, _U}, {_PE, _E}, {_PO, _OE},
+      {_A}, {_A}, {_A},//k
+      {_A}, {_A}, {_A},//s
+      {_A}, {_A}, {_A},//c
+      {_A}, {_A}, {_A},//n
+      {_A}, {_A}, {_A},//h
+      {_A}, {_A}, {_A},//m
+      {_A}, {_A}, {_A},//r
+      {_A}, {_A}, {_A},//g
+      {_A}, {_A}, {_A},//j
+      {_A}, {_A}, {_A},//b
+      {_A}, {_A}, {_A},//p
+      {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}
     }; //TODO: Expand for additional KanaTable::Kana
   
   enum ConfigOptionsMenu
@@ -63,6 +75,7 @@ namespace JpSynthMan
       ConfigData::ConfigOption options[19];
       JpSynthManager();
       void init(GinSing);
+      void panic();
       void update_config();
       void end_speak();
       void handle_midi_note(byte, byte);
@@ -70,6 +83,7 @@ namespace JpSynthMan
       int get_buffer_source();
       int get_notes_on();
       int get_buffer_position();
+      int get_buffer_add_position();
       void kana_buffer_clear();
       void kana_buffer_add(KanaTable::Kana);
       void kana_buffer_rm_last();

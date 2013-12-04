@@ -3,7 +3,7 @@
 
 namespace KanaTable
 {
-  static const int KANA_COUNT = 128; //Old val = 71
+  static const int KANA_COUNT = 118; //Old val = 71
 
   enum Kana
   {
@@ -38,7 +38,7 @@ namespace KanaTable
     _BYA, _BYU, _BYO,
     _PYA, _PYU, _PYO,
 
-    _K, _S, _T, _Ns, _H, _M, _Y, _R, _W, _G, _Z, _D, _B, _P,
+    _K, _S, _T, _H, _M, _Y, _R, _W, _G, _Z, _D, _B, _P,
 
     _NULL = 255
   };
