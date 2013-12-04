@@ -28,6 +28,7 @@ namespace Keypad
   class KeypadHandler
   {
     private:
+      PhysicalButton get_button(int, int, int);
       void set_up_pins();
       int button_pins[PHYSICAL_BUTTON_COUNT];
       int button_last[PHYSICAL_BUTTON_COUNT];
@@ -39,7 +40,6 @@ namespace Keypad
       GUIMan::ButtonValue scan_menu();
       GUIMan::ButtonValue scan_funct_keys();
       KanaTable::Kana scan_kana();
-      PhysicalButton get_button(int, int, int); //DEV
   };
 
 };

@@ -11,7 +11,7 @@
 
 namespace JpSynthMan
 {
-  static GSAllophone kana_map[KanaTable::KANA_COUNT][3] =
+  static GSAllophone kana_map[KanaTable::KANA_COUNT][4] =
     {
       {_SPEEDDN, _A}, {_SPEEDDN, _I}, {_SPEEDDN, _U}, {_SPEEDDN, _E}, {_SPEEDDN, _OE},
       {_KE, _A}, {_KE, _I}, {_KE, _UE}, {_KE, _E}, {_KO, _OE},
@@ -29,19 +29,19 @@ namespace JpSynthMan
       {_DE, _A}, {_Z, _I}, {_Z, _U}, {_DE, _E}, {_DO, _OE},
       {_BE, _A}, {_BE, _I}, {_BE, _U}, {_BE, _E}, {_BO, _OE},
       {_PE, _A}, {_PE, _I}, {_PE, _U}, {_PE, _E}, {_PO, _OE},
-      {_A}, {_A}, {_A},//k
-      {_A}, {_A}, {_A},//s
-      {_A}, {_A}, {_A},//c
-      {_A}, {_A}, {_A},//n
-      {_A}, {_A}, {_A},//h
-      {_A}, {_A}, {_A},//m
-      {_A}, {_A}, {_A},//r
-      {_A}, {_A}, {_A},//g
-      {_A}, {_A}, {_A},//j
-      {_A}, {_A}, {_A},//b
-      {_A}, {_A}, {_A},//p
-      {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}, {_A}
-    }; //TODO: Expand for additional KanaTable::Kana
+      {_KE, _Y, _A},  {_KE, _Y, _U},  {_KE, _Y, _OE},
+      {_SH, _A},      {_SH, _UE},     {_SH, _OE},
+      {_CH, _A},      {_CH, _U},      {_CH, _OE},
+      {_NE, _Y, _A},  {_NE, _Y, _U},  {_NE, _Y, _OE},
+      {_HE, _Y, _A},  {_HE, _Y, _U},  {_HE, _Y, _OE},
+      {_M, _Y, _A},   {_M, _Y, _U},   {_M, _Y, _OE},
+      {_R, _Y, _A},   {_R, _Y, _U},   {_R, _Y, _OE},
+      {_GE, _Y, _A},  {_GE, _Y, _U},  {_GE, _Y, _OE},
+      {_A}, {_A}, {_A},//TODO: j
+      {_BE, _Y, _A},  {_BE, _Y, _U},  {_BE, _Y, _OE},
+      {_PE, _Y, _A},  {_PE, _Y, _U},  {_PE, _Y, _OE},
+      {_KE}, {_SE}, {_T}, {_HE}, {_M}, {_Y}, {_R}, {_W}, {_GE}, {_Z}, {_DE}, {_BE}, {_PE}
+    };
   
   enum ConfigOptionsMenu
   {

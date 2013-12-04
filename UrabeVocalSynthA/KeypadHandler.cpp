@@ -148,7 +148,7 @@ KanaTable::Kana KeypadHandler::scan_kana()
     }
     if((second_val >= (int) YA) && (second_val <= (int) YO))
     {
-      second_index = second_val - ((int) YA) + 5;
+      second_index = second_val - ((int) YA) + 6;
       handak_button = third_button;
     }
 
@@ -159,7 +159,7 @@ KanaTable::Kana KeypadHandler::scan_kana()
     }
     if((third_val >= (int) YA) && (third_val <= (int) YO))
     {
-      second_index = third_val - ((int) YA) + 5;
+      second_index = third_val - ((int) YA) + 6;
       handak_button = second_button;
     }
 
