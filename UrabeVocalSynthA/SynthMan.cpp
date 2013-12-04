@@ -40,11 +40,19 @@ void SynthManager::init(GinSing GS)
   this->update_config();
 }
 
+void SynthManager::panic()
+{
+  this->end_notes();
+  this->update_config();
+  this->synth->begin();
+}
+
 void SynthManager::update_config()
 {
 }
 
 int SynthManager::get_option_count() { return this->option_count; }
+int SynthManager::get_notes_on() { return this->notes_on; }
 
 void SynthManager::handle_midi_note(byte pitch, byte velocity)
 {

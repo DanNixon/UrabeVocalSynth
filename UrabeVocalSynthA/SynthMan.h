@@ -49,8 +49,10 @@ namespace SynthMan
       ConfigData::ConfigOption options[20];
       SynthManager();
       void init(GinSing);
+      void panic();
       void update_config();
       int get_option_count();
+      int get_notes_on();
       void handle_midi_note(byte, byte);
       void end_notes();
   };
