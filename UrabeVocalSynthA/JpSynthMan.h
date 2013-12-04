@@ -14,21 +14,24 @@ namespace JpSynthMan
   static GSAllophone kana_map[KanaTable::KANA_COUNT][4] =
     {
       {_SPEEDDN, _A}, {_SPEEDDN, _I}, {_SPEEDDN, _U}, {_SPEEDDN, _E}, {_SPEEDDN, _OE},
-      {_KE, _A}, {_KE, _I}, {_KE, _UE}, {_KE, _E}, {_KO, _OE},
-      {_SE, _A}, {_SH, _I}, {_SE, _U}, {_SE, _E}, {_SE, _OE},
-      {_T, _A}, {_CH, _I}, {_TS, _UE}, {_T, _E}, {_T, _OE},
-      {_NE, _A}, {_NE, _I}, {_NE, _U}, {_NE, _E}, {_NO, _OE},
-      {_HE, _A}, {_HE, _I}, {_HE, _U}, {_HE, _E}, {_HO, _OE},
-      {_M, _A}, {_M, _I}, {_M, _U}, {_M, _E}, {_M, _OE},
-      {_Y, _A}, {_Y, _U}, {_Y, _OE},
-      {_R, _A}, {_R, _I}, {_R, _UE}, {_R, _E}, {_R, _OE},
-      {_W, _A}, {_W, _OE},
+
+      {_KE, _A},  {_KE, _I},  {_KE, _UE}, {_KE, _E},  {_KO, _OE},
+      {_SE, _A},  {_SH, _I},  {_SE, _U},  {_SE, _E},  {_SE, _OE},
+      {_T, _A},   {_CH, _I},  {_TS, _UE}, {_T, _E},   {_T, _OE},
+      {_NE, _A},  {_NE, _I},  {_NE, _U},  {_NE, _E},  {_NO, _OE},
+      {_HE, _A},  {_HE, _I},  {_HE, _U},  {_HE, _E},  {_HO, _OE},
+      {_M, _A},   {_M, _I},   {_M, _U},   {_M, _E},   {_M, _OE},
+      {_Y, _A},   {_Y, _U},   {_Y, _OE},
+      {_R, _A},   {_R, _I},   {_R, _UE},  {_R, _E},   {_R, _OE},
+      {_W, _A},   {_W, _OE},
       {_NE},
-      {_GE, _A}, {_GE, _I}, {_GE, _UE}, {_GE, _E}, {_GO, _OE},
-      {_Z, _A}, {_Z, _I}, {_Z, _U}, {_Z, _E}, {_Z, _OE},
-      {_DE, _A}, {_Z, _I}, {_Z, _U}, {_DE, _E}, {_DO, _OE},
-      {_BE, _A}, {_BE, _I}, {_BE, _U}, {_BE, _E}, {_BO, _OE},
-      {_PE, _A}, {_PE, _I}, {_PE, _U}, {_PE, _E}, {_PO, _OE},
+
+      {_GE, _A},  {_GE, _I},  {_GE, _UE}, {_GE, _E},  {_GO, _OE},
+      {_Z, _A},   {_Z, _I},   {_Z, _U},   {_Z, _E},   {_Z, _OE},
+      {_DE, _A},  {_Z, _I},   {_Z, _U},   {_DE, _E},  {_DO, _OE},
+      {_BE, _A},  {_BE, _I},  {_BE, _U},  {_BE, _E},  {_BO, _OE},
+      {_PE, _A},  {_PE, _I},  {_PE, _U},  {_PE, _E},  {_PO, _OE},
+
       {_KE, _Y, _A},  {_KE, _Y, _U},  {_KE, _Y, _OE},
       {_SH, _A},      {_SH, _UE},     {_SH, _OE},
       {_CH, _A},      {_CH, _U},      {_CH, _OE},
@@ -37,10 +40,12 @@ namespace JpSynthMan
       {_M, _Y, _A},   {_M, _Y, _U},   {_M, _Y, _OE},
       {_R, _Y, _A},   {_R, _Y, _U},   {_R, _Y, _OE},
       {_GE, _Y, _A},  {_GE, _Y, _U},  {_GE, _Y, _OE},
-      {_A}, {_A}, {_A},//TODO: j
+      {_Z, _Y, _A},   {_Z, _Y, _U},   {_Z, _Y, _OE},
       {_BE, _Y, _A},  {_BE, _Y, _U},  {_BE, _Y, _OE},
       {_PE, _Y, _A},  {_PE, _Y, _U},  {_PE, _Y, _OE},
-      {_KE}, {_SE}, {_T}, {_HE}, {_M}, {_Y}, {_R}, {_W}, {_GE}, {_Z}, {_DE}, {_BE}, {_PE}
+
+      {_KE}, {_SE}, {_T}, {_HE}, {_M}, {_Y}, {_R}, {_W},
+      {_GE}, {_Z}, {_DE}, {_BE}, {_PE}
     };
   
   enum ConfigOptionsMenu
