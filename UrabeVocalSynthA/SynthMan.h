@@ -3,6 +3,7 @@
 
 #include <GinSing.h>
 #include "ConfigDataDef.h"
+#include "GSMidiMap.h"
 
 namespace SynthMan
 {
@@ -44,6 +45,7 @@ namespace SynthMan
       int osc_pitch[6];
       int option_count;
       int master_volume;
+      int freq_distortion;
 
     public:
       ConfigData::ConfigOption options[20];
