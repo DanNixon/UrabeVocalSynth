@@ -195,15 +195,15 @@ void SynthManager::handle_midi_note(byte pitch, byte velocity)
         {
           case 0:
           case 3:
-            synth->setAmplitude(OSC_1, 0.0f);
+            synth->release(OSC_1);
             break;
           case 1:
           case 4:
-            synth->setAmplitude(OSC_2, 0.0f);
+            synth->release(OSC_2);
             break;
           case 2:
           case 5:
-            synth->setAmplitude(OSC_3, 0.0f);
+            synth->release(OSC_3);
             break;
         }
         this->osc_pitch[i] = 0;
@@ -233,16 +233,19 @@ void SynthManager::handle_midi_note(byte pitch, byte velocity)
             case 3:
               synth->setNote(OSC_1, note);
               synth->setAmplitude(OSC_1, volume);
+              synth->trigger(OSC_1);
               break;
             case 1:
             case 4:
               synth->setNote(OSC_2, note);
               synth->setAmplitude(OSC_2, volume);
+              synth->trigger(OSC_2);
               break;
             case 2:
             case 5:
               synth->setNote(OSC_3, note);
               synth->setAmplitude(OSC_3, volume);
+              synth->trigger(OSC_3);
               break;
           }
           this->osc_pitch[i] = pitch;
