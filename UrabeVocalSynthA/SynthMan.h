@@ -16,7 +16,6 @@ namespace SynthMan
     FREQ_DISTORT_SRC,
     FREQ_DISTORT_VAL,
 
-    BIAS,
     OVERFLOW,
     P_DUTY_CYCLE,
 
@@ -39,6 +38,7 @@ namespace SynthMan
   class SynthManager
   {
     private:
+      void update_config_worker();
       GinSingSynth *synth;
       GinSingMaster *master;
       int notes_on;
@@ -46,6 +46,12 @@ namespace SynthMan
       int option_count;
       int master_volume;
       int freq_distortion;
+      int attack_duration;
+      int attack_volume;
+      int decay_duration;
+      int decay_volume;
+      int release_duration;
+      int release_volume;
 
     public:
       ConfigData::ConfigOption options[20];
