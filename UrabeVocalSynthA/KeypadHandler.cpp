@@ -133,9 +133,9 @@ KanaTable::Kana KeypadHandler::scan_kana()
   }
   if((button_val >= (int) K) && (button_val <= (int) W))
   {
-    PhysicalButton second_button = this->get_button(500, 4, PHYSICAL_BUTTON_COUNT);
+    PhysicalButton second_button = this->get_button(KANA_ENTRY_DELAY, 4, PHYSICAL_BUTTON_COUNT);
     int second_val = (int) second_button;
-    PhysicalButton third_button = this->get_button(500, 4, PHYSICAL_BUTTON_COUNT);
+    PhysicalButton third_button = this->get_button(KANA_ENTRY_DELAY, 4, PHYSICAL_BUTTON_COUNT);
     int third_val = (int) third_button;
  
     PhysicalButton handak_button;

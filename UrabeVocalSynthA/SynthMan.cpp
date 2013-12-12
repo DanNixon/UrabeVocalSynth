@@ -61,18 +61,16 @@ void SynthManager::panic()
 void SynthManager::update_config()
 {
   synth->selectBank(BANK_A);
-  synth->setPatch(OSC_1_TO_MIXER | OSC_2_TO_MIXER | OSC_3_TO_MIXER);
-
   this->update_config_worker();
 
   synth->selectBank(BANK_B);
-  synth->setPatch(OSC_1_TO_MIXER | OSC_2_TO_MIXER | OSC_3_TO_MIXER);
-
   this->update_config_worker();
 }
 
 void SynthManager::update_config_worker()
 {
+  synth->setPatch(OSC_1_TO_MIXER | OSC_2_TO_MIXER | OSC_3_TO_MIXER);
+
   int waveform = this->options[SYNTH_WAVEFORM].value;
   int overflow_en = this->options[OVERFLOW].value;
 

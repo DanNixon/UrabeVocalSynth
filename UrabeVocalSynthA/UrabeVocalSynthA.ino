@@ -8,7 +8,7 @@
 #include "JpSynthMan.h"
 #include "KeypadHandler.h"
 
-extern const char *VERSION_STRING = "v0.3";
+extern const char *VERSION_STRING = "v0.4";
 
 using namespace GUIMan;
 
@@ -190,10 +190,7 @@ void loop()
         k = key_man.scan_kana();
         jp_synth_man.kana_buffer_add(k);
         if(k != KanaTable::_NULL)
-        {
-          Serial.println(k);
           gui_man.draw();
-        }
       }
       key_result = key_man.scan_funct_keys();
       break;

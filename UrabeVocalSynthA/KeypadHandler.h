@@ -5,6 +5,8 @@
 #include "GUIMan.h"
 #include "JpSynthMan.h"
 
+#define KANA_ENTRY_DELAY 250
+
 using namespace GUIMan;
 
 namespace Keypad
