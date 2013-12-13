@@ -17,6 +17,7 @@ GSDecRelDur decreldur_arr[16] = {
 SynthManager::SynthManager()
 {
   this->option_count = 19;
+
   this->options[VOLUME_SOURCE] = {"Volume Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
   this->options[VOLUME_PRESET] = {"Volume Preset", ConfigData::ENUM, 800, {"0", "1000"}, 25};
 

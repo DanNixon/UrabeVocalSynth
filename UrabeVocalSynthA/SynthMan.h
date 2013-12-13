@@ -54,7 +54,7 @@ namespace SynthMan
       int release_volume;
 
     public:
-      ConfigData::ConfigOption options[20];
+      ConfigData::ConfigOption options[19];
       SynthManager();
       void init(GinSing);
       void panic();

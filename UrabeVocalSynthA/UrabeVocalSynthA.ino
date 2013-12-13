@@ -8,6 +8,11 @@
 #include "JpSynthMan.h"
 #include "KeypadHandler.h"
 
+#include "MemoryFree.h"
+
+//Set to 1 for serial debug and MIDI disable, 0 for normal operation
+#define DEBUG 0
+
 extern const char *VERSION_STRING = "v0.4";
 
 using namespace GUIMan;
@@ -15,9 +20,11 @@ using namespace GUIMan;
 GinSing GS;
 GLCDManager glcd_man;
 JpSynthManager jp_synth_man;
+SynthManager synth_man;
 GUIManager gui_man(&glcd_man, &jp_synth_man);
 Keypad::KeypadHandler key_man(&gui_man, &jp_synth_man);
 
+/*
 KanaTable::Kana p[] =
   {
     KanaTable::_NA,
@@ -125,18 +132,26 @@ KanaTable::Kana p[] =
     KanaTable::_KE,
     KanaTable::_NULL
   };
+*/
 
 void setup()
 {
   pinMode(2, OUTPUT);
+#if DEBUG == 0
   MIDI.begin(MIDI_CHANNEL_OMNI);
   MIDI.setHandleNoteOn(midi_note_handle);
+#endif
   GS.begin(12, 11, 10);
   jp_synth_man.init(GS);
+  synth_man.init(GS);
 //  for(int i=0; i<100; i++)
 //    jp_synth_man.kana_buffer_add(p[i]);
   gui_man.draw();
-//  Serial.begin(115200);
+#if DEBUG == 1
+  Serial.begin(115200);
+  Serial.print("Memory free (bytes): ");
+  Serial.println(freeMemory());
+#endif
 }
 
 void midi_note_handle(byte channel, byte pitch, byte velocity)
@@ -146,10 +161,14 @@ void midi_note_handle(byte channel, byte pitch, byte velocity)
     case MENU:
       break;
     case WAVEFORM:
-      //Parse waveform synth MIDI here
+#if DEBUG == 0
+      synth_man.handle_midi_note(pitch, velocity);
+#endif
       break;
     case VOCAL:
+#if DEBUG == 0
       jp_synth_man.handle_midi_note(pitch, velocity);
+#endif
       break;
   }
   gui_man.draw();
