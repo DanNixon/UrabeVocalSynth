@@ -2,7 +2,6 @@
 
 using namespace SynthMan;
 
-/*
 GSAttackDur attackdur_arr[16] = {
   AT_2MS,     AT_8MS,     AT_16MS,    AT_24MS,    AT_38MS,    AT_56MS,
   AT_68MS,    AT_80MS,    AT_100MS,   AT_250MS,   AT_500MS,   AT_800MS,
@@ -14,12 +13,12 @@ GSDecRelDur decreldur_arr[16] = {
   DR_40MS,    DR_48MS,    DR_59MS,    DR_145MS,   DR_292MS,   DR_455MS,
   DR_575MS,   DR_1500MS,  DR_2785MS,  DR_4873MS
 };
-*/
+
 
 SynthManager::SynthManager()
 {
-  this->option_count = 0;
-/*
+  this->option_count = 19;
+
   this->options[VOLUME_SOURCE] = {"Volume Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
   this->options[VOLUME_PRESET] = {"Volume Preset", ConfigData::ENUM, 800, {"0", "1000"}, 25};
 
@@ -44,7 +43,6 @@ SynthManager::SynthManager()
   this->options[REL_DUR_VAL] = {"Release Dur. Preset", ConfigData::ENUM, 0, {"2", "6", "10", "15", "23", "34", "40", "48", "59", "145", "292", "455", "575", "1500", "2785", "4873"}, 16};
   this->options[REL_AMP_SRC] = {"Release Amp. Src", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
   this->options[REL_AMP_VAL] = {"Release Amp. Preset", ConfigData::INT, 0, {"0", "1000"}, 25};
-  */
 }
 
 void SynthManager::init(GinSing GS)
@@ -74,7 +72,7 @@ void SynthManager::update_config()
 void SynthManager::update_config_worker()
 {
   synth->setPatch(OSC_1_TO_MIXER | OSC_2_TO_MIXER | OSC_3_TO_MIXER);
-/*
+
   int waveform = this->options[SYNTH_WAVEFORM].value;
   int overflow_en = this->options[OVERFLOW].value;
 
@@ -173,7 +171,6 @@ void SynthManager::update_config_worker()
     synth->enableOverflow(OSC_2, false);
     synth->enableOverflow(OSC_3, false);
   }
-  */
 }
 
 int SynthManager::get_option_count() { return this->option_count; }

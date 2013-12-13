@@ -7,7 +7,6 @@
 
 namespace SynthMan
 {
-  /*
   enum ConfigOptionsMenu
   {
     VOLUME_SOURCE = 0,
@@ -35,7 +34,7 @@ namespace SynthMan
     REL_AMP_SRC,
     REL_AMP_VAL
   };
-*/
+
   class SynthManager
   {
     private:
@@ -55,7 +54,7 @@ namespace SynthMan
       int release_volume;
 
     public:
-      ConfigData::ConfigOption options[0];
+      ConfigData::ConfigOption options[19];
       SynthManager();
       void init(GinSing);
       void panic();
