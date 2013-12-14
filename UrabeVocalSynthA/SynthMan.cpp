@@ -20,7 +20,7 @@ SynthManager::SynthManager()
   this->option_count = 19;
 
   this->options[VOLUME_SOURCE] = {"Volume Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
-  this->options[VOLUME_PRESET] = {"Volume Preset", ConfigData::ENUM, 800, {"0", "1000"}, 25};
+  this->options[VOLUME_PRESET] = {"Volume Preset", ConfigData::INT, 800, {"0", "1000"}, 25};
 
   this->options[SYNTH_WAVEFORM]   = {"Waveform", ConfigData::ENUM, 0, {"Sine", "Triangle", "Sawtooth", "Ramp", "Pulse", "Noise"}, 6};
   this->options[FREQ_DISTORT_SRC] = {"Freq. Distort. Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
@@ -56,8 +56,8 @@ void SynthManager::init(GinSing GS)
 void SynthManager::panic()
 {
   this->end_notes();
-  this->update_config();
   this->synth->begin();
+  this->update_config();
 }
 
 void SynthManager::update_config()
@@ -178,7 +178,6 @@ int SynthManager::get_notes_on() { return this->notes_on; }
 
 void SynthManager::handle_midi_note(byte pitch, byte velocity)
 {
-  this->update_config();
   GSNote note = GS_MIDINotes[pitch];
 
   if(velocity == 0)
@@ -260,10 +259,16 @@ void SynthManager::handle_midi_note(byte pitch, byte velocity)
 void SynthManager::end_notes()
 {
   synth->selectBank(BANK_A);
+  synth->setAmplitude(OSC_1, 0);
+  synth->setAmplitude(OSC_2, 0);
+  synth->setAmplitude(OSC_3, 0);
   synth->release(OSC_1);
   synth->release(OSC_2);
   synth->release(OSC_3);
-  synth->selectBank(BANK_A);
+  synth->selectBank(BANK_B);
+  synth->setAmplitude(OSC_1, 0);
+  synth->setAmplitude(OSC_2, 0);
+  synth->setAmplitude(OSC_3, 0);
   synth->release(OSC_1);
   synth->release(OSC_2);
   synth->release(OSC_3);

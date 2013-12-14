@@ -51,6 +51,7 @@ namespace GUIMan
     private:
       GLCDManager *glcd_man;
       JpSynthManager *jps_man;
+      SynthManager *synth_man;
       SystemMode mode;
       void do_draw();
       void change_option(ConfigData::ConfigOption *, int);
@@ -58,7 +59,7 @@ namespace GUIMan
       MenuWindow current_window;
       
     public:
-      GUIManager(GLCDManager *, JpSynthManager *);
+      GUIManager(GLCDManager *, JpSynthManager *, SynthManager *);
       SystemMode get_system_mode();
       void draw();
       void handle_menu_input(ButtonValue);

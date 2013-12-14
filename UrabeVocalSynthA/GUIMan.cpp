@@ -3,12 +3,13 @@
 extern char *VERSION_STRING;
 using namespace GUIMan;
 
-GUIManager::GUIManager(GLCDManager *glcd_manager, JpSynthManager *jp_synth_manager)
+GUIManager::GUIManager(GLCDManager *glcd_manager, JpSynthManager *jp_synth_manager, SynthManager *synth_manager)
 {
   this->current_window = MAIN;
   this->mode = MENU;
   this->glcd_man = glcd_manager;
   this->jps_man = jp_synth_manager;
+  this->synth_man = synth_manager;
 }
 
 SystemMode GUIManager::get_system_mode() { return this->mode; }
@@ -28,6 +29,7 @@ void GUIManager::do_draw()
   switch(this->current_window)
   {
     case MAIN:
+      this->current_option = 0;
       this->glcd_man->draw_title_large("UrabeVocalSynth");
       this->glcd_man->draw_buttons_lower("Synth", "Vocal");
       this->glcd_man->u8g.setFont(u8g_font_helvR08);
@@ -47,13 +49,11 @@ void GUIManager::do_draw()
     case SYNTH_SETTINGS:
       this->glcd_man->draw_title("Synth S");
       this->glcd_man->draw_buttons_upper("Back", "");
-//      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default"); //TODO: After implementing EEPROM value saving
-//      glcd_man->draw_option(this->display_options[this->current_option]);
+      glcd_man->draw_option(this->synth_man->options[this->current_option]);
       break;
     case JP_SETTINGS:
       this->glcd_man->draw_title("Vocal S");
       this->glcd_man->draw_buttons_upper("Back", "");
-//      this->glcd_man->draw_buttons_lower("Sys. Rst.", "Default"); //TODO: After implementing EEPROM value saving
       glcd_man->draw_option(this->jps_man->options[this->current_option]);
       break;
     case SYNTH_RUN:
@@ -140,6 +140,23 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
       {
         case _F1: //Back
           this->current_window = SYNTH_MENU;
+          this->synth_man->update_config();
+          break;
+        case _UP:
+          this->change_option(&this->synth_man->options[this->current_option], 1);
+          break;
+        case _DOWN:
+          this->change_option(&this->synth_man->options[this->current_option], -1);
+          break;
+        case _LEFT:
+          this->current_option--;
+          if(this->current_option < 0)
+            this->current_option = this->synth_man->get_option_count() - 1;
+          break;
+        case _RIGHT:
+          this->current_option++;
+          if(this->current_option >= this->synth_man->get_option_count())
+            this->current_option = 0;
           break;
       }
       break;
@@ -175,7 +192,7 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           this->current_window = SYNTH_MENU;
           break;
         case _F3: //Panic
-          //TODO: All notes off (after implement waveform synth manager)
+          this->synth_man->panic();
           break;
       }
       break;
@@ -187,7 +204,6 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           break;
         case _F3: //Panic
           this->jps_man->panic();
-          //TODO: Fix GLCD issue
           break;
         case _F4: //Clear Buffer
           this->jps_man->kana_buffer_clear();

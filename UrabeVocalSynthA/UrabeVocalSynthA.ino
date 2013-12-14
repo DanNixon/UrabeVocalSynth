@@ -21,7 +21,7 @@ GinSing GS;
 GLCDManager glcd_man;
 JpSynthManager jp_synth_man;
 SynthManager synth_man;
-GUIManager gui_man(&glcd_man, &jp_synth_man);
+GUIManager gui_man(&glcd_man, &jp_synth_man, &synth_man);
 Keypad::KeypadHandler key_man(&gui_man, &jp_synth_man);
 
 /*
