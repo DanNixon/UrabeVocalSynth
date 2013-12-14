@@ -13,7 +13,7 @@
 //Set to 1 for serial debug and MIDI disable, 0 for normal operation
 #define DEBUG 0
 
-extern const char *VERSION_STRING = "v0.4";
+extern const char *VERSION_STRING = "v0.5";
 
 using namespace GUIMan;
 

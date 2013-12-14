@@ -62,12 +62,20 @@ void SynthManager::panic()
 
 void SynthManager::update_config()
 {
+  if(this->options[VOLUME_SOURCE].value == 0)
+    this->master_volume = this->options[VOLUME_PRESET].value;
+
+  float f_master_volume = (float) this->master_volume / 100.0f; //TODO: volume setting bug
+//  this->master->setAmplitude(MIX_ALL, f_master_volume);
+
   synth->selectBank(BANK_A);
   this->update_config_worker();
 
   synth->selectBank(BANK_B);
   this->update_config_worker();
 }
+
+//TODO: MIDI control handler
 
 void SynthManager::update_config_worker()
 {
@@ -87,7 +95,7 @@ void SynthManager::update_config_worker()
     this->attack_duration = this->options[ATK_DUR_VAL].value;
 
   if(this->options[ATK_AMP_SRC].value == 0)
-    this->attack_duration = this->options[ATK_AMP_VAL].value;
+    this->attack_volume = this->options[ATK_AMP_VAL].value;
   float f_attack_volume = (float) this->attack_volume / 100.0f;
 
   if(this->options[DEC_DUR_SRC].value == 0)
@@ -272,4 +280,22 @@ void SynthManager::end_notes()
   synth->release(OSC_1);
   synth->release(OSC_2);
   synth->release(OSC_3);
+  this->notes_on = 0;
+}
+
+int SynthManager::get_volume() { return this->master_volume; }
+int SynthManager::get_freq_distortion() { return this->freq_distortion; }
+
+int SynthManager::get_attack_amp() { return this->attack_volume; }
+int SynthManager::get_decay_amp() { return this->decay_volume; }
+int SynthManager::get_release_amp() { return this->release_volume; }
+
+char* SynthManager::get_attack_duration() { return this->options[ATK_DUR_VAL].values[this->attack_duration]; }
+char* SynthManager::get_decay_duration() { return this->options[DEC_DUR_VAL].values[this->decay_duration]; }
+char* SynthManager::get_release_duration() { return this->options[REL_DUR_VAL].values[this->release_duration]; }
+
+char* SynthManager::get_waveform_name()
+{
+  int waveform = this->options[SYNTH_WAVEFORM].value;
+  return this->options[SYNTH_WAVEFORM].values[waveform];
 }

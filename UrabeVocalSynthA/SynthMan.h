@@ -63,6 +63,15 @@ namespace SynthMan
       int get_notes_on();
       void handle_midi_note(byte, byte);
       void end_notes();
+      char *get_waveform_name();
+      int get_volume();
+      int get_freq_distortion();
+      int get_attack_amp();
+      char *get_attack_duration();
+      int get_decay_amp();
+      char * get_decay_duration();
+      int get_release_amp();
+      char *get_release_duration();
   };
 
 };

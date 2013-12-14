@@ -61,6 +61,38 @@ void GUIManager::do_draw()
       this->glcd_man->draw_title("Synth");
       this->glcd_man->draw_buttons_upper("Back", "");
       this->glcd_man->draw_buttons_lower("Panic", "");
+      this->glcd_man->u8g.setFont(u8g_font_5x7);
+      //Print some general info
+      this->glcd_man->u8g.drawStr(0, 22, this->synth_man->get_waveform_name());
+      char vol_buf[10];
+      sprintf(vol_buf, "Vol: %d", this->synth_man->get_volume());
+      this->glcd_man->u8g.drawStr(0, 30, vol_buf);
+      char dist_buf[10];
+      sprintf(dist_buf, "Dist: %d", this->synth_man->get_freq_distortion());
+      this->glcd_man->u8g.drawStr(0, 38, dist_buf);
+      char poly_buf[10];
+      sprintf(poly_buf, "Poly: %d", this->synth_man->get_notes_on());
+      this->glcd_man->u8g.drawStr(0, 46, poly_buf);
+      //Print the envelope stage labels
+      this->glcd_man->u8g.drawStr(55, 30, "A");
+      this->glcd_man->u8g.drawStr(55, 38, "D");
+      this->glcd_man->u8g.drawStr(55, 46, "R");
+      //Print envelope durations
+      this->glcd_man->u8g.drawStr(65, 22, "Dur.");
+      this->glcd_man->u8g.drawStr(65, 30, this->synth_man->get_attack_duration());
+      this->glcd_man->u8g.drawStr(65, 38, this->synth_man->get_decay_duration());
+      this->glcd_man->u8g.drawStr(65, 46, this->synth_man->get_release_duration());
+      //print envelope amplitudes
+      this->glcd_man->u8g.drawStr(95, 22, "Amp.");
+      char atk_buf[10];
+      sprintf(atk_buf, "%d", this->synth_man->get_attack_amp());
+      this->glcd_man->u8g.drawStr(95, 30, atk_buf);
+      char dec_buf[10];
+      sprintf(dec_buf, "%d", this->synth_man->get_decay_amp());
+      this->glcd_man->u8g.drawStr(95, 38, dec_buf);
+      char rel_buf[10];
+      sprintf(rel_buf, "%d", this->synth_man->get_release_amp());
+      this->glcd_man->u8g.drawStr(95, 46, rel_buf);
       break;
     case JP_RUN:
       this->mode = VOCAL;
@@ -68,12 +100,14 @@ void GUIManager::do_draw()
       this->glcd_man->draw_buttons_upper("Back", "");
       this->glcd_man->draw_buttons_lower("Panic", "Clr Buf");
       this->glcd_man->u8g.setFont(u8g_font_5x7);
+      //Print kana buffer pointer values
       char read_counter_buf[10];
       char write_counter_buf[10];
       sprintf(read_counter_buf, "R:%d", this->jps_man->get_buffer_position());
       sprintf(write_counter_buf, "W:%d", this->jps_man->get_buffer_add_position());
       this->glcd_man->u8g.drawStr(88, 22, read_counter_buf);
       this->glcd_man->u8g.drawStr(88, 30, write_counter_buf);
+      //Print kana buffer
       KanaTable::Kana disp_kana[9];
       int offset = 0;
       if(this->jps_man->get_notes_on())

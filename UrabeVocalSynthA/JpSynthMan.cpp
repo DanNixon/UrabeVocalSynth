@@ -43,10 +43,12 @@ void JpSynthManager::update_config()
     this->blend_speed = this->options[BLEND_SPEED_PRESET].value;
   if(this->options[DELAY_SOURCE].value == 0)
     this->phoneame_delay = this->options[DELAY_PRESET].value;
+
   if(this->options[VOLUME_SOURCE].value == 0)
     this->master_volume = this->options[VOLUME_PRESET].value;
+
   float f_master_volume = (float) this->master_volume / 100.0f; //TODO: volume setting bug
-  this->master->setAmplitude(MIX_ALL, f_master_volume);
+//  this->master->setAmplitude(MIX_ALL, f_master_volume);
 }
 
 //TODO: MIDI control handler
