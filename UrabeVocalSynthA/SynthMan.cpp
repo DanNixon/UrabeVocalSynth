@@ -17,11 +17,12 @@ GSDecRelDur decreldur_arr[16] = {
 
 SynthManager::SynthManager()
 {
-  this->option_count = 19;
+  this->option_count = 20;
 
   this->options[VOLUME_SOURCE] = {"Volume Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
   this->options[VOLUME_PRESET] = {"Volume Preset", ConfigData::INT, 800, {"0", "1000"}, 25};
 
+  this->options[SYNTH_WAVEFORM_SRC] = {"Waveform Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
   this->options[SYNTH_WAVEFORM]   = {"Waveform", ConfigData::ENUM, 0, {"Sine", "Triangle", "Sawtooth", "Ramp", "Pulse", "Noise"}, 6};
   this->options[FREQ_DISTORT_SRC] = {"Freq. Distort. Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
   this->options[FREQ_DISTORT_VAL] = {"Freq. Distort. Preset", ConfigData::INT, 0, {"0", "1000"}, 50};
@@ -75,14 +76,14 @@ void SynthManager::update_config()
   this->update_config_worker();
 }
 
-//TODO: MIDI control handler
-
 void SynthManager::update_config_worker()
 {
   synth->setPatch(OSC_1_TO_MIXER | OSC_2_TO_MIXER | OSC_3_TO_MIXER);
-
-  int waveform = this->options[SYNTH_WAVEFORM].value;
+  
   int overflow_en = this->options[OVERFLOW].value;
+
+  if(this->options[SYNTH_WAVEFORM_SRC].value == 0)
+    this->waveform = this->options[SYNTH_WAVEFORM].value;
 
   if(this->options[FREQ_DISTORT_SRC].value == 0)
     this->freq_distortion = this->options[FREQ_DISTORT_VAL].value;
@@ -183,6 +184,28 @@ void SynthManager::update_config_worker()
 
 int SynthManager::get_option_count() { return this->option_count; }
 int SynthManager::get_notes_on() { return this->notes_on; }
+
+void SynthManager::handle_midi_cc(byte number, byte value)
+{
+  if((this->options[VOLUME_SOURCE].value == 1) && (number == WSYNTH_CC_VOLUME))
+    this->master_volume = map(value, 0, 127, 0, 1000);
+  if((this->options[SYNTH_WAVEFORM_SRC].value == 1) && (number == WSYNTH_CC_WAVE))
+    this->waveform = map(value, 0, 127, 0, 5);
+  if((this->options[FREQ_DISTORT_SRC].value == 1) && (number == WSYNTH_CC_FDIST))
+    this->freq_distortion = map(value, 0, 127, 0, 1000);
+  if((this->options[ATK_DUR_SRC].value == 1) && (number == WSYNTH_CC_ATKDUR))
+    this->attack_duration = attackdur_arr[map(value, 0, 127, 0, 15)];
+  if((this->options[ATK_AMP_SRC].value == 1) && (number == WSYNTH_CC_ATKAMP))
+    this->attack_volume = map(value, 0, 127, 0, 1000);
+  if((this->options[DEC_DUR_SRC].value == 1) && (number == WSYNTH_CC_DECDUR))
+    this->decay_duration = decreldur_arr[map(value, 0, 127, 0, 15)];
+  if((this->options[DEC_AMP_SRC].value == 1) && (number == WSYNTH_CC_DECAMP))
+    this->decay_volume = map(value, 0, 127, 0, 1000);
+  if((this->options[REL_DUR_SRC].value == 1) && (number == WSYNTH_CC_RELDUR))
+    this->release_duration = decreldur_arr[map(value, 0, 127, 0, 15)];
+  if((this->options[REL_AMP_SRC].value == 1) && (number == WSYNTH_CC_RELAMP))
+    this->release_volume = map(value, 0, 127, 0, 1000);
+}
 
 void SynthManager::handle_midi_note(byte pitch, byte velocity)
 {
@@ -293,9 +316,4 @@ int SynthManager::get_release_amp() { return this->release_volume; }
 char* SynthManager::get_attack_duration() { return this->options[ATK_DUR_VAL].values[this->attack_duration]; }
 char* SynthManager::get_decay_duration() { return this->options[DEC_DUR_VAL].values[this->decay_duration]; }
 char* SynthManager::get_release_duration() { return this->options[REL_DUR_VAL].values[this->release_duration]; }
-
-char* SynthManager::get_waveform_name()
-{
-  int waveform = this->options[SYNTH_WAVEFORM].value;
-  return this->options[SYNTH_WAVEFORM].values[waveform];
-}
+char* SynthManager::get_waveform_name() { return this->options[SYNTH_WAVEFORM].values[this->waveform]; }

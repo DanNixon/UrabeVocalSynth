@@ -147,6 +147,7 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           break;
         case _F2: //Run
           this->current_window = SYNTH_RUN;
+          this->synth_man->panic();
           break;
         case _F3: //Settings
           this->current_option = 0;
@@ -162,6 +163,7 @@ void GUIManager::handle_menu_input(ButtonValue b_val)
           break;
         case _F2: //Run
           this->current_window = JP_RUN;
+          this->jps_man->panic();
           break;
         case _F3: //Settings
           this->current_option = 0;

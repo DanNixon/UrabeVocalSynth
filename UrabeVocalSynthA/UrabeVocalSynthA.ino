@@ -13,7 +13,7 @@
 //Set to 1 for serial debug and MIDI disable, 0 for normal operation
 #define DEBUG 0
 
-extern const char *VERSION_STRING = "v0.5";
+extern const char *VERSION_STRING = "v1.0";
 
 using namespace GUIMan;
 
@@ -140,6 +140,7 @@ void setup()
 #if DEBUG == 0
   MIDI.begin(MIDI_CHANNEL_OMNI);
   MIDI.setHandleNoteOn(midi_note_handle);
+  MIDI.setHandleControlChange(midi_cc_handle);
 #endif
   GS.begin(12, 11, 10);
   jp_synth_man.init(GS);
@@ -174,8 +175,28 @@ void midi_note_handle(byte channel, byte pitch, byte velocity)
   gui_man.draw();
 }
 
+void midi_cc_handle(byte channel, byte number, byte value)
+{
+  switch(gui_man.get_system_mode())
+  {
+    case MENU:
+      break;
+    case WAVEFORM:
+#if DEBUG == 0
+      synth_man.handle_midi_cc(number, value);
+#endif
+      break;
+    case VOCAL:
+#if DEBUG == 0
+      jp_synth_man.handle_midi_cc(number, value);
+#endif
+      break;
+  }
+}
+
 long last_hb = 0;
 boolean hb_state = false;
+int gui_refresh_count = 0;
 
 void heartbeat()
 {
@@ -190,6 +211,7 @@ void heartbeat()
     digitalWrite(2, led_state);
     last_hb = current_time;
   }
+  gui_refresh_count++;
 }
 
 void loop()

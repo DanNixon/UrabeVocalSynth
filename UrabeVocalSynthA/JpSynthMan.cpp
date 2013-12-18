@@ -51,7 +51,15 @@ void JpSynthManager::update_config()
 //  this->master->setAmplitude(MIX_ALL, f_master_volume);
 }
 
-//TODO: MIDI control handler
+void JpSynthManager::handle_midi_cc(byte number, byte value)
+{
+  if((this->options[VOLUME_SOURCE].value == 1) && (number == JPSYNTH_CC_VOLUME))
+    this->master_volume = map(value, 0, 127, -1, 1000);
+  if((this->options[BLEND_SPEED_SOURCE].value == 1) && (number == JPSYNTH_CC_BLENDSPEED))
+    this->blend_speed = map(value, 0, 127, -1, 1000);
+  if((this->options[DELAY_SOURCE].value == 1) && (number == JPSYNTH_CC_DELAY))
+    this->phoneame_delay = map(value, 0, 127, -1, 1000);
+}
 
 void JpSynthManager::speak_kana(KanaTable::Kana kana, GSNote note)
 {

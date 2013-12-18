@@ -1,13 +1,17 @@
 #ifndef JPSYNTHMAN_H
 #define JPSYNTHMAN_H
 
-#define KANA_BUFFER_SIZE 512
-
 #include <GinSing.h>
 #include "KanaTable.h"
 #include "GSMidiMap.h"
 #include "ConfigDataDef.h"
 #include "GLCDMan.h"
+
+#define KANA_BUFFER_SIZE 512
+
+#define JPSYNTH_CC_VOLUME 17
+#define JPSYNTH_CC_BLENDSPEED 10
+#define JPSYNTH_CC_DELAY 11
 
 namespace JpSynthMan
 {
@@ -84,6 +88,7 @@ namespace JpSynthMan
       void update_config();
       void end_speak();
       void handle_midi_note(byte, byte);
+      void handle_midi_cc(byte, byte);
       int get_option_count();
       int get_buffer_source();
       int get_notes_on();

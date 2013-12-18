@@ -5,6 +5,16 @@
 #include "ConfigDataDef.h"
 #include "GSMidiMap.h"
 
+#define WSYNTH_CC_VOLUME 18
+#define WSYNTH_CC_WAVE 17
+#define WSYNTH_CC_FDIST 13
+#define WSYNTH_CC_ATKDUR 10
+#define WSYNTH_CC_ATKAMP 14
+#define WSYNTH_CC_DECDUR 11
+#define WSYNTH_CC_DECAMP 15
+#define WSYNTH_CC_RELDUR 12
+#define WSYNTH_CC_RELAMP 16
+
 namespace SynthMan
 {
   enum ConfigOptionsMenu
@@ -12,6 +22,7 @@ namespace SynthMan
     VOLUME_SOURCE = 0,
     VOLUME_PRESET,
 
+    SYNTH_WAVEFORM_SRC,
     SYNTH_WAVEFORM,
     FREQ_DISTORT_SRC,
     FREQ_DISTORT_VAL,
@@ -45,6 +56,7 @@ namespace SynthMan
       int osc_pitch[6];
       int option_count;
       int master_volume;
+      int waveform;
       int freq_distortion;
       int attack_duration;
       int attack_volume;
@@ -54,7 +66,7 @@ namespace SynthMan
       int release_volume;
 
     public:
-      ConfigData::ConfigOption options[19];
+      ConfigData::ConfigOption options[20];
       SynthManager();
       void init(GinSing);
       void panic();
@@ -62,6 +74,7 @@ namespace SynthMan
       int get_option_count();
       int get_notes_on();
       void handle_midi_note(byte, byte);
+      void handle_midi_cc(byte, byte);
       void end_notes();
       char *get_waveform_name();
       int get_volume();
