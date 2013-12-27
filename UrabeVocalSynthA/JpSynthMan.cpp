@@ -11,11 +11,11 @@ JpSynthManager::JpSynthManager()
 
   this->option_count = 5;
 
-  this->options[KANA_SOURCE]        = {"Kana Source", ConfigData::ENUM, 0, {"Keyboard", "File"}, 2};
-  this->options[BLEND_SPEED_SOURCE] = {"Blend Speed Source", ConfigData::ENUM, 0, {"Preset", "MIDI",}, 2};
-  this->options[BLEND_SPEED_PRESET] = {"Blend Speed Preset", ConfigData::INT, -1, {"-1", "1000"}, -1};
-  this->options[DELAY_SOURCE]       = {"Delay Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
-  this->options[DELAY_PRESET]       = {"Delay Preset", ConfigData::INT, -1, {"-1", "1000"}, -1};
+  this->options[KANA_SOURCE]        = (ConfigData::ConfigOption) {"Kana Source", ConfigData::ENUM, 0, {"Keyboard", "File"}, 2};
+  this->options[BLEND_SPEED_SOURCE] = (ConfigData::ConfigOption) {"Blend Speed Source", ConfigData::ENUM, 0, {"Preset", "MIDI",}, 2};
+  this->options[BLEND_SPEED_PRESET] = (ConfigData::ConfigOption) {"Blend Speed Preset", ConfigData::INT, -1, {"-1", "1000"}, -1};
+  this->options[DELAY_SOURCE]       = (ConfigData::ConfigOption) {"Delay Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
+  this->options[DELAY_PRESET]       = (ConfigData::ConfigOption) {"Delay Preset", ConfigData::INT, -1, {"-1", "1000"}, -1};
 }
 
 void JpSynthManager::init(GinSing gs)

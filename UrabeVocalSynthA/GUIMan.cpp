@@ -64,15 +64,12 @@ void GUIManager::do_draw()
       this->glcd_man->u8g.setFont(u8g_font_5x7);
       //Print some general info
       this->glcd_man->u8g.drawStr(0, 22, this->synth_man->get_waveform_name());
-      char vol_buf[10];
-      sprintf(vol_buf, "Vol: %d", this->synth_man->get_volume());
-      this->glcd_man->u8g.drawStr(0, 30, vol_buf);
       char dist_buf[10];
       sprintf(dist_buf, "Dist: %d", this->synth_man->get_freq_distortion());
-      this->glcd_man->u8g.drawStr(0, 38, dist_buf);
+      this->glcd_man->u8g.drawStr(0, 30, dist_buf);
       char poly_buf[10];
       sprintf(poly_buf, "Poly: %d", this->synth_man->get_notes_on());
-      this->glcd_man->u8g.drawStr(0, 46, poly_buf);
+      this->glcd_man->u8g.drawStr(0, 38, poly_buf);
       //Print the envelope stage labels
       this->glcd_man->u8g.drawStr(55, 30, "A");
       this->glcd_man->u8g.drawStr(55, 38, "D");
