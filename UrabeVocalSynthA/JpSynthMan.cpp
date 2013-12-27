@@ -9,13 +9,9 @@ JpSynthManager::JpSynthManager()
   for(int i=0; i<KANA_BUFFER_SIZE; i++)
     this->kana_buffer[i] = KanaTable::_NULL;
 
-  this->option_count = 7;
+  this->option_count = 5;
 
-  this->options[VOLUME_PRESET] = {"Volume Preset", ConfigData::INT, 500, {"0", "1000"}, -1};
-  this->options[VOLUME_SOURCE] = {"Volume Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
-
-  this->options[KANA_SOURCE]   = {"Kana Source", ConfigData::ENUM, 0, {"Keyboard", "File"}, 2};
-
+  this->options[KANA_SOURCE]        = {"Kana Source", ConfigData::ENUM, 0, {"Keyboard", "File"}, 2};
   this->options[BLEND_SPEED_SOURCE] = {"Blend Speed Source", ConfigData::ENUM, 0, {"Preset", "MIDI",}, 2};
   this->options[BLEND_SPEED_PRESET] = {"Blend Speed Preset", ConfigData::INT, -1, {"-1", "1000"}, -1};
   this->options[DELAY_SOURCE]       = {"Delay Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
@@ -25,7 +21,6 @@ JpSynthManager::JpSynthManager()
 void JpSynthManager::init(GinSing gs)
 {
   this->voice = gs.getVoice();
-  this->master = gs.getMaster();
   this->voice->begin();
   this->update_config();
 }
@@ -43,18 +38,10 @@ void JpSynthManager::update_config()
     this->blend_speed = this->options[BLEND_SPEED_PRESET].value;
   if(this->options[DELAY_SOURCE].value == 0)
     this->phoneame_delay = this->options[DELAY_PRESET].value;
-
-  if(this->options[VOLUME_SOURCE].value == 0)
-    this->master_volume = this->options[VOLUME_PRESET].value;
-
-  float f_master_volume = (float) this->master_volume / 100.0f; //TODO: volume setting bug
-//  this->master->setAmplitude(MIX_ALL, f_master_volume);
 }
 
 void JpSynthManager::handle_midi_cc(byte number, byte value)
 {
-  if((this->options[VOLUME_SOURCE].value == 1) && (number == JPSYNTH_CC_VOLUME))
-    this->master_volume = map(value, 0, 127, -1, 1000);
   if((this->options[BLEND_SPEED_SOURCE].value == 1) && (number == JPSYNTH_CC_BLENDSPEED))
     this->blend_speed = map(value, 0, 127, -1, 1000);
   if((this->options[DELAY_SOURCE].value == 1) && (number == JPSYNTH_CC_DELAY))

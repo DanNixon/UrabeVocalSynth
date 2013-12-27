@@ -5,7 +5,6 @@
 #include "ConfigDataDef.h"
 #include "GSMidiMap.h"
 
-#define WSYNTH_CC_VOLUME 18
 #define WSYNTH_CC_WAVE 17
 #define WSYNTH_CC_FDIST 13
 #define WSYNTH_CC_ATKDUR 10
@@ -19,10 +18,7 @@ namespace SynthMan
 {
   enum ConfigOptionsMenu
   {
-    VOLUME_SOURCE = 0,
-    VOLUME_PRESET,
-
-    SYNTH_WAVEFORM_SRC,
+    SYNTH_WAVEFORM_SRC = 0,
     SYNTH_WAVEFORM,
     FREQ_DISTORT_SRC,
     FREQ_DISTORT_VAL,
@@ -51,11 +47,9 @@ namespace SynthMan
     private:
       void update_config_worker();
       GinSingSynth *synth;
-      GinSingMaster *master;
       int notes_on;
       int osc_pitch[6];
       int option_count;
-      int master_volume;
       int waveform;
       int freq_distortion;
       int attack_duration;
@@ -66,7 +60,7 @@ namespace SynthMan
       int release_volume;
 
     public:
-      ConfigData::ConfigOption options[20];
+      ConfigData::ConfigOption options[18];
       SynthManager();
       void init(GinSing);
       void panic();
@@ -77,7 +71,6 @@ namespace SynthMan
       void handle_midi_cc(byte, byte);
       void end_notes();
       char *get_waveform_name();
-      int get_volume();
       int get_freq_distortion();
       int get_attack_amp();
       char *get_attack_duration();

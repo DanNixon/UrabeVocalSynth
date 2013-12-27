@@ -17,10 +17,7 @@ GSDecRelDur decreldur_arr[16] = {
 
 SynthManager::SynthManager()
 {
-  this->option_count = 20;
-
-  this->options[VOLUME_SOURCE] = {"Volume Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
-  this->options[VOLUME_PRESET] = {"Volume Preset", ConfigData::INT, 800, {"0", "1000"}, 25};
+  this->option_count = 18;
 
   this->options[SYNTH_WAVEFORM_SRC] = {"Waveform Source", ConfigData::ENUM, 0, {"Preset", "MIDI"}, 2};
   this->options[SYNTH_WAVEFORM]   = {"Waveform", ConfigData::ENUM, 0, {"Sine", "Triangle", "Sawtooth", "Ramp", "Pulse", "Noise"}, 6};
@@ -49,7 +46,6 @@ SynthManager::SynthManager()
 void SynthManager::init(GinSing GS)
 {
   this->synth = GS.getSynth();
-  this->master = GS.getMaster();
   this->synth->begin();
   this->update_config();
 }
@@ -63,12 +59,6 @@ void SynthManager::panic()
 
 void SynthManager::update_config()
 {
-  if(this->options[VOLUME_SOURCE].value == 0)
-    this->master_volume = this->options[VOLUME_PRESET].value;
-
-  float f_master_volume = (float) this->master_volume / 100.0f; //TODO: volume setting bug
-//  this->master->setAmplitude(MIX_ALL, f_master_volume);
-
   synth->selectBank(BANK_A);
   this->update_config_worker();
 
@@ -187,8 +177,6 @@ int SynthManager::get_notes_on() { return this->notes_on; }
 
 void SynthManager::handle_midi_cc(byte number, byte value)
 {
-  if((this->options[VOLUME_SOURCE].value == 1) && (number == WSYNTH_CC_VOLUME))
-    this->master_volume = map(value, 0, 127, 0, 1000);
   if((this->options[SYNTH_WAVEFORM_SRC].value == 1) && (number == WSYNTH_CC_WAVE))
     this->waveform = map(value, 0, 127, 0, 5);
   if((this->options[FREQ_DISTORT_SRC].value == 1) && (number == WSYNTH_CC_FDIST))
@@ -306,7 +294,6 @@ void SynthManager::end_notes()
   this->notes_on = 0;
 }
 
-int SynthManager::get_volume() { return this->master_volume; }
 int SynthManager::get_freq_distortion() { return this->freq_distortion; }
 
 int SynthManager::get_attack_amp() { return this->attack_volume; }

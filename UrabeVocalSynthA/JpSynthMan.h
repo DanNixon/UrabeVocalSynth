@@ -9,7 +9,6 @@
 
 #define KANA_BUFFER_SIZE 512
 
-#define JPSYNTH_CC_VOLUME 17
 #define JPSYNTH_CC_BLENDSPEED 10
 #define JPSYNTH_CC_DELAY 11
 
@@ -54,10 +53,7 @@ namespace JpSynthMan
   
   enum ConfigOptionsMenu
   {
-    VOLUME_SOURCE = 0,
-    VOLUME_PRESET,
-    KANA_SOURCE,
-
+    KANA_SOURCE = 0,
     BLEND_SPEED_SOURCE,
     BLEND_SPEED_PRESET,
     DELAY_SOURCE,
@@ -68,20 +64,18 @@ namespace JpSynthMan
   {
     private:
       GinSingVoice *voice;
-      GinSingMaster *master;
       GLCDManager *glcd_man;
       int notes_on;
       int buffer_position;
       int option_count;
       int buffer_add_position;
-      int master_volume;
       int blend_speed;
       int phoneame_delay;
       void speak_kana(KanaTable::Kana, GSNote);
   
     public:
       KanaTable::Kana kana_buffer[KANA_BUFFER_SIZE];
-      ConfigData::ConfigOption options[7];
+      ConfigData::ConfigOption options[5];
       JpSynthManager();
       void init(GinSing);
       void panic();
