@@ -1,7 +1,7 @@
 UrabeVocalSynth
 ===============
 
-A waveform and Japanese voice MIDI synthesiser loosely based on the hardware design of Yamaha's Vocaloid Board (demo keyboard)[https://www.youtube.com/watch?v=d9e87KLMrng].
+A waveform and Japanese voice MIDI synthesiser loosely based on the hardware design of Yamaha's Vocaloid Board [demo keyboard](https://www.youtube.com/watch?v=d9e87KLMrng).
 
 Features
 --------
